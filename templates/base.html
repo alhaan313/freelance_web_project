@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Vaniyambadi Business Directory{% endblock %}</title>
+    <meta name="description"
+        content="{% block meta_desc %}Discover trusted local businesses in Vaniyambadi — clinics, shoe stores, and leather manufacturers.{% endblock %}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head %}{% endblock %}
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+
+    <!-- ─── Navbar ───────────────────────────── -->
+    <nav class="navbar" id="navbar">
+        <div class="container navbar-inner">
+            <div class="navbar-brand">
+                <a href="{% if name %}#hero{% else %}/{% endif %}"><span>{% if name %}{{ name }}{% else %}Hango{% endif
+                        %}</span></a>
+            </div>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="navbar-nav" id="navbarNav">
+                {% block nav_links %}
+                <a href="#about">About</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#services">{% if category == 'clinic' %}Services{% elif category == 'leather_company'
+                    %}Products{% else %}Collection{% endif %}</a>
+                <a href="#testimonials">Reviews</a>
+                <a href="#contact">Contact</a>
+                <div class="navbar-cta">
+                    {% if phone %}
+                    <a href="tel:{{ phone }}" class="btn btn-primary btn-sm">Call Now</a>
+                    {% endif %}
+                </div>
+                {% endblock %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- ─── Main Content ─────────────────────── -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- ─── Scrolling Marquee ──────────────── -->
+    {% block marquee %}
+    <section class="marquee-section">
+        <div class="marquee-track">
+            <span>In quality</span>
+            <div class="marquee-dot"></div>
+            <span>Heritage collections</span>
+            <div class="marquee-dot"></div>
+            <span>Handcrafted products</span>
+            <div class="marquee-dot"></div>
+            <span>Genuine</span>
+            <div class="marquee-dot"></div>
+            <span>Premium leather</span>
+            <div class="marquee-dot"></div>
+            <span>Trusted since generations</span>
+            <div class="marquee-dot"></div>
+            <!-- Duplicate for seamless loop -->
+            <span>In quality</span>
+            <div class="marquee-dot"></div>
+            <span>Heritage collections</span>
+            <div class="marquee-dot"></div>
+            <span>Handcrafted products</span>
+            <div class="marquee-dot"></div>
+            <span>Genuine</span>
+            <div class="marquee-dot"></div>
+            <span>Premium leather</span>
+            <div class="marquee-dot"></div>
+            <span>Trusted since generations</span>
+            <div class="marquee-dot"></div>
+        </div>
+    </section>
+    {% endblock %}
+
+    <!-- ─── Footer ───────────────────────────── -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>{% if name %}{{ name }}{% else %}Vaniyambadi Online{% endif %}</h3>
+                    <p>{% if description %}{{ description[:140] }}{% if description|length > 140 %}...{% endif %}{% else
+                        %}Your trusted local business partner in Vaniyambadi, Tamil Nadu. Quality products and services
+                        since generations.{% endif %}</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        {% block footer_links %}
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#services">{% if category == 'clinic' %}Services{% else %}Products{% endif %}</a>
+                        </li>
+                        <li><a href="#testimonials">Reviews</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        {% endblock %}
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        {% if phone %}<li><a href="tel:{{ phone }}">{{ phone }}</a></li>{% endif %}
+                        {% if whatsapp %}<li><a href="https://wa.me/{{ whatsapp }}" target="_blank">WhatsApp</a></li>{%
+                        endif %}
+                        {% if email %}<li><a href="mailto:{{ email }}">{{ email }}</a></li>{% endif %}
+                        {% if address %}<li>{{ address[:60] }}{% if address|length > 60 %}...{% endif %}</li>{% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 {% if name %}{{ name }}{% else %}Vaniyambadi Online{% endif %}. All rights reserved.</p>
+                <p class="footer-powered">Built by <a href="/">Vaniyambadi Web</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>

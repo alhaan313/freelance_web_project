@@ -1,0 +1,45 @@
+# Environment variables (sensitive keys)
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyc
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.gemini/
+
+# OS
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Data files
+*.xlsx
+*.xls
+*.csv
+excel_columns.txt
+
+# Logs
+*.log
+
+# Notebook & checkpoints
+*.ipynb
+.ipynb_checkpoints/
+
+# Utility / one-off scripts (not part of the web app)
+download_images.py
+download_seq_images.py
+download_stock_images.py
+inspect_excel.py
+
+# Downloaded / generated images (large binary assets)
+static/images/
