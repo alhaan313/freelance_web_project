@@ -11,6 +11,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
+    return render_template('homepage.html')
+
+@app.route('/d9x3k7')
+def directory():
     # Fetch all businesses for the directory
     businesses = get_all_businesses()
     return render_template('index.html', businesses=businesses)

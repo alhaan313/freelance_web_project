@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swift Sites Solutions — Premium Web Design & Digital Branding</title>
+    <meta name="description"
+        content="Swift Sites Solutions crafts stunning, high-performance websites with premium branding and top-tier media. Your vision, our expertise.">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+
+<body class="agency-page">
+
+    <!-- ─── Navbar ───────────────────────────── -->
+    <nav class="ag-navbar" id="agNavbar">
+        <div class="container ag-navbar-inner">
+            <div class="ag-brand">
+                <a href="/">Swift<span>Sites</span></a>
+            </div>
+            <button class="menu-toggle" id="agMenuToggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="ag-nav-links" id="agNavLinks">
+                <a href="#services">Services</a>
+                <a href="#work">Our Work</a>
+                <a href="#process">Process</a>
+                <a href="#testimonials">Reviews</a>
+                <a href="#contact">Contact</a>
+                <a href="/d9x3k7" class="ag-nav-cta">View Directory →</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════
+         HERO — Immersive Full-Viewport
+         ═══════════════════════════════════════════ -->
+    <section class="ag-hero" id="hero">
+        <div class="ag-hero-bg">
+            <div class="ag-gradient-orb ag-orb-1"></div>
+            <div class="ag-gradient-orb ag-orb-2"></div>
+            <div class="ag-gradient-orb ag-orb-3"></div>
+            <div class="ag-grid-overlay"></div>
+        </div>
+        <div class="ag-hero-particles" id="agParticles"></div>
+        <div class="container ag-hero-content">
+            <div class="ag-hero-badge ag-reveal">
+                <span class="ag-badge-pulse"></span>
+                Now Accepting New Projects
+            </div>
+            <h1 class="ag-reveal">
+                We Build Websites<br>
+                That <em>Move</em> People.
+            </h1>
+            <p class="ag-hero-sub ag-reveal">
+                Premium web design, powerful branding, and top-tier visual media —
+                crafted to make your business unforgettable.
+            </p>
+            <div class="ag-hero-actions ag-reveal">
+                <a href="#contact" class="ag-btn ag-btn-primary">
+                    Start Your Project
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+                <a href="#work" class="ag-btn ag-btn-glass">View Our Work</a>
+            </div>
+            <div class="ag-hero-clients ag-reveal">
+                <span class="ag-clients-label">Trusted by</span>
+                <div class="ag-clients-avatars">
+                    <div class="ag-avatar" style="background:#6366f1;">A</div>
+                    <div class="ag-avatar" style="background:#f59e0b;">B</div>
+                    <div class="ag-avatar" style="background:#10b981;">C</div>
+                    <div class="ag-avatar" style="background:#ef4444;">D</div>
+                    <div class="ag-avatar" style="background:#8b5cf6;">E</div>
+                </div>
+                <span class="ag-clients-count">20+ happy clients</span>
+            </div>
+        </div>
+        <div class="ag-scroll-indicator">
+            <div class="ag-scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SERVICES
+         ═══════════════════════════════════════════ -->
+    <section class="ag-services" id="services">
+        <div class="container">
+            <div class="ag-section-header ag-reveal">
+                <span class="ag-label">What We Do</span>
+                <h2>Services that <em>elevate</em> your brand</h2>
+                <p>Every project is a unique story. We bring yours to life with precision, creativity, and craft.</p>
+            </div>
+            <div class="ag-services-grid">
+                <div class="ag-service-card ag-reveal">
+                    <div class="ag-service-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <rect x="2" y="3" width="20" height="14" rx="2" />
+                            <line x1="8" y1="21" x2="16" y2="21" />
+                            <line x1="12" y1="17" x2="12" y2="21" />
+                        </svg>
+                    </div>
+                    <h3>Web Design & Development</h3>
+                    <p>Stunning, responsive websites built with modern tech. Fast, beautiful, and designed to convert.
+                    </p>
+                    <span class="ag-service-num">01</span>
+                </div>
+                <div class="ag-service-card ag-reveal">
+                    <div class="ag-service-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                            <path d="M2 17l10 5 10-5" />
+                            <path d="M2 12l10 5 10-5" />
+                        </svg>
+                    </div>
+                    <h3>Branding & Identity</h3>
+                    <p>Logo design, color systems, and brand guidelines that make your business instantly recognizable.
+                    </p>
+                    <span class="ag-service-num">02</span>
+                </div>
+                <div class="ag-service-card ag-reveal">
+                    <div class="ag-service-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                            <circle cx="8.5" cy="8.5" r="1.5" />
+                            <polyline points="21 15 16 10 5 21" />
+                        </svg>
+                    </div>
+                    <h3>Top-Tier Media & Images</h3>
+                    <p>Professional photography, custom graphics, and visual content that captures attention instantly.
+                    </p>
+                    <span class="ag-service-num">03</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SHOWCASE / PORTFOLIO
+         ═══════════════════════════════════════════ -->
+    <section class="ag-work" id="work">
+        <div class="container">
+            <div class="ag-section-header ag-reveal">
+                <span class="ag-label">Our Work</span>
+                <h2>Projects that <em>speak</em> for themselves</h2>
+            </div>
+            <div class="ag-portfolio-grid">
+                <div class="ag-portfolio-card ag-portfolio-featured ag-reveal">
+                    <div class="ag-portfolio-content">
+                        <span class="ag-portfolio-tag">Featured Project</span>
+                        <h3>Vaniyambadi Business Directory</h3>
+                        <p>A full-stack business directory connecting clinics, shoe stores, and leather companies — with
+                            individual landing pages, lead capture, and dynamic filtering.</p>
+                        <a href="/d9x3k7" class="ag-btn ag-btn-outline-light">View Live →</a>
+                    </div>
+                    <div class="ag-portfolio-visual">
+                        <div class="ag-browser-mockup">
+                            <div class="ag-browser-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <div class="ag-browser-content">
+                                <div class="ag-mock-nav"></div>
+                                <div class="ag-mock-hero"></div>
+                                <div class="ag-mock-grid">
+                                    <div class="ag-mock-card"></div>
+                                    <div class="ag-mock-card"></div>
+                                    <div class="ag-mock-card"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ag-portfolio-card ag-reveal">
+                    <div class="ag-portfolio-mini">
+                        <div class="ag-portfolio-mini-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                                <line x1="3" y1="6" x2="21" y2="6" />
+                                <path d="M16 10a4 4 0 0 1-8 0" />
+                            </svg>
+                        </div>
+                        <h3>E-Commerce Platforms</h3>
+                        <p>Custom storefronts with payment integration and inventory management.</p>
+                    </div>
+                </div>
+                <div class="ag-portfolio-card ag-reveal">
+                    <div class="ag-portfolio-mini">
+                        <div class="ag-portfolio-mini-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg>
+                        </div>
+                        <h3>Brand Identity Systems</h3>
+                        <p>Complete visual identities from logo to style guide.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         PROCESS — How It Works
+         ═══════════════════════════════════════════ -->
+    <section class="ag-process" id="process">
+        <div class="container">
+            <div class="ag-section-header ag-reveal">
+                <span class="ag-label">How It Works</span>
+                <h2>From idea to <em>launch</em> in 3 steps</h2>
+            </div>
+            <div class="ag-process-steps">
+                <div class="ag-step ag-reveal">
+                    <div class="ag-step-number">01</div>
+                    <div class="ag-step-content">
+                        <h3>Discovery & Strategy</h3>
+                        <p>We dive deep into your brand, audience, and goals to craft a strategy that drives real
+                            results.</p>
+                    </div>
+                </div>
+                <div class="ag-step-connector"></div>
+                <div class="ag-step ag-reveal">
+                    <div class="ag-step-number">02</div>
+                    <div class="ag-step-content">
+                        <h3>Design & Build</h3>
+                        <p>Pixel-perfect designs brought to life with clean code, smooth animations, and premium
+                            visuals.</p>
+                    </div>
+                </div>
+                <div class="ag-step-connector"></div>
+                <div class="ag-step ag-reveal">
+                    <div class="ag-step-number">03</div>
+                    <div class="ag-step-content">
+                        <h3>Launch & Grow</h3>
+                        <p>We launch your site, optimize for search, and provide ongoing support to help you grow.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         STATS
+         ═══════════════════════════════════════════ -->
+    <section class="ag-stats">
+        <div class="container">
+            <div class="ag-stats-grid">
+                <div class="ag-stat ag-reveal">
+                    <div class="ag-stat-number" data-count="20">0</div>
+                    <div class="ag-stat-suffix">+</div>
+                    <div class="ag-stat-label">Projects Delivered</div>
+                </div>
+                <div class="ag-stat ag-reveal">
+                    <div class="ag-stat-number" data-count="15">0</div>
+                    <div class="ag-stat-suffix">+</div>
+                    <div class="ag-stat-label">Happy Clients</div>
+                </div>
+                <div class="ag-stat ag-reveal">
+                    <div class="ag-stat-number" data-count="100">0</div>
+                    <div class="ag-stat-suffix">%</div>
+                    <div class="ag-stat-label">Satisfaction Rate</div>
+                </div>
+                <div class="ag-stat ag-reveal">
+                    <div class="ag-stat-number" data-count="3">0</div>
+                    <div class="ag-stat-suffix">yrs</div>
+                    <div class="ag-stat-label">Of Excellence</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         TESTIMONIALS
+         ═══════════════════════════════════════════ -->
+    <section class="ag-testimonials" id="testimonials">
+        <div class="container">
+            <div class="ag-section-header ag-reveal">
+                <span class="ag-label ag-label-light">Client Stories</span>
+                <h2>What our clients <em>say</em></h2>
+            </div>
+            <div class="ag-testimonials-grid">
+                <div class="ag-testimonial ag-reveal">
+                    <div class="ag-testimonial-stars">★★★★★</div>
+                    <p>"Swift Sites Solutions didn't just build us a website — they built us a brand presence. The
+                        quality is unmatched."</p>
+                    <div class="ag-testimonial-author">
+                        <div class="ag-t-avatar" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">AK</div>
+                        <div>
+                            <div class="ag-t-name">Arun Kumar</div>
+                            <div class="ag-t-role">Business Owner</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ag-testimonial ag-reveal">
+                    <div class="ag-testimonial-stars">★★★★★</div>
+                    <p>"The attention to detail is incredible. Our site looks premium and loads instantly. Exactly what
+                        we needed."</p>
+                    <div class="ag-testimonial-author">
+                        <div class="ag-t-avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444);">PS</div>
+                        <div>
+                            <div class="ag-t-name">Priya Sharma</div>
+                            <div class="ag-t-role">Clinic Director</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ag-testimonial ag-reveal">
+                    <div class="ag-testimonial-stars">★★★★★</div>
+                    <p>"From concept to launch in under two weeks. Professional, responsive, and truly talented team."
+                    </p>
+                    <div class="ag-testimonial-author">
+                        <div class="ag-t-avatar" style="background:linear-gradient(135deg,#10b981,#047857);">MR</div>
+                        <div>
+                            <div class="ag-t-name">Mohammed Rizwan</div>
+                            <div class="ag-t-role">Leather Company CEO</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         CTA BANNER
+         ═══════════════════════════════════════════ -->
+    <section class="ag-cta" id="contact">
+        <div class="ag-cta-bg">
+            <div class="ag-gradient-orb ag-orb-1"></div>
+            <div class="ag-gradient-orb ag-orb-2"></div>
+        </div>
+        <div class="container ag-cta-content">
+            <div class="ag-reveal">
+                <span class="ag-label ag-label-light">Ready to Start?</span>
+                <h2>Let's Build Something<br><em>Extraordinary</em> Together.</h2>
+                <p>Get in touch and let's discuss your next project. No cookie-cutter templates — only bespoke
+                    solutions.</p>
+                <div class="ag-cta-actions">
+                    <a href="https://wa.me/919876543210" target="_blank" class="ag-btn ag-btn-white">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                        </svg>
+                        WhatsApp Us
+                    </a>
+                    <a href="mailto:hello@swiftsites.in" class="ag-btn ag-btn-glass-dark">
+                        hello@swiftsites.in
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         FOOTER
+         ═══════════════════════════════════════════ -->
+    <footer class="ag-footer">
+        <div class="container">
+            <div class="ag-footer-grid">
+                <div class="ag-footer-brand">
+                    <h3>Swift<span>Sites</span></h3>
+                    <p>Premium web design and digital branding agency. Crafting digital experiences that move people.
+                    </p>
+                </div>
+                <div class="ag-footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#work">Portfolio</a></li>
+                        <li><a href="#process">Process</a></li>
+                        <li><a href="/d9x3k7">Business Directory</a></li>
+                    </ul>
+                </div>
+                <div class="ag-footer-col">
+                    <h4>Get In Touch</h4>
+                    <ul>
+                        <li><a href="https://wa.me/919876543210" target="_blank">WhatsApp</a></li>
+                        <li><a href="mailto:hello@swiftsites.in">hello@swiftsites.in</a></li>
+                        <li>Vaniyambadi, Tamil Nadu</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="ag-footer-bottom">
+                <p>&copy; 2026 Swift Sites Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        // Agency page specific interactions
+        (function () {
+            'use strict';
+
+            // Reveal on scroll
+            const els = document.querySelectorAll('.ag-reveal');
+            if (els.length && 'IntersectionObserver' in window) {
+                const obs = new IntersectionObserver((entries) => {
+                    entries.forEach(e => {
+                        if (e.isIntersecting) {
+                            e.target.classList.add('ag-revealed');
+                            obs.unobserve(e.target);
+                        }
+                    });
+                }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+                els.forEach(el => obs.observe(el));
+            } else {
+                els.forEach(el => el.classList.add('ag-revealed'));
+            }
+
+            // Navbar scroll
+            const nav = document.getElementById('agNavbar');
+            window.addEventListener('scroll', () => {
+                if (nav) nav.classList.toggle('ag-scrolled', window.scrollY > 40);
+            }, { passive: true });
+
+            // Mobile menu
+            const toggle = document.getElementById('agMenuToggle');
+            const links = document.getElementById('agNavLinks');
+            if (toggle && links) {
+                toggle.addEventListener('click', () => {
+                    toggle.classList.toggle('active');
+                    links.classList.toggle('ag-open');
+                });
+                links.querySelectorAll('a').forEach(a => {
+                    a.addEventListener('click', () => {
+                        toggle.classList.remove('active');
+                        links.classList.remove('ag-open');
+                    });
+                });
+            }
+
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(a => {
+                a.addEventListener('click', function (e) {
+                    const t = document.querySelector(this.getAttribute('href'));
+                    if (t) { e.preventDefault(); window.scrollTo({ top: t.offsetTop - 72, behavior: 'smooth' }); }
+                });
+            });
+
+            // Particles
+            const pc = document.getElementById('agParticles');
+            if (pc) {
+                const spawn = () => {
+                    const p = document.createElement('div');
+                    p.className = 'ag-particle';
+                    p.style.left = Math.random() * 100 + '%';
+                    p.style.animationDuration = (5 + Math.random() * 5) + 's';
+                    pc.appendChild(p);
+                    setTimeout(() => p.remove(), 10000);
+                };
+                for (let i = 0; i < 12; i++) setTimeout(spawn, i * 300);
+                setInterval(spawn, 600);
+            }
+
+            // Counter animation
+            const counters = document.querySelectorAll('.ag-stat-number[data-count]');
+            if (counters.length) {
+                const cobs = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const el = entry.target;
+                            const target = parseInt(el.dataset.count, 10);
+                            const dur = 1500;
+                            const start = performance.now();
+                            const animate = (now) => {
+                                const progress = Math.min((now - start) / dur, 1);
+                                const eased = 1 - Math.pow(1 - progress, 3);
+                                el.textContent = Math.round(eased * target);
+                                if (progress < 1) requestAnimationFrame(animate);
+                            };
+                            requestAnimationFrame(animate);
+                            cobs.unobserve(el);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                counters.forEach(el => cobs.observe(el));
+            }
+        })();
+    </script>
+</body>
+
+</html>
