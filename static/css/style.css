@@ -716,6 +716,12 @@ button {
     margin-left: 12px;
 }
 
+.navbar-cta .btn-primary {
+    background: var(--brown);
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
 /* Menu toggle */
 .menu-toggle {
     display: none;
@@ -782,7 +788,7 @@ button {
 }
 
 .btn-primary {
-    background: var(--charcoal);
+    background: var(--brown);
     color: var(--white);
     box-shadow: 0 4px 14px rgba(0, 0, 0, .15);
 }
