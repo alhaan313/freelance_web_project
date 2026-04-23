@@ -1,0 +1,45 @@
+{% macro image_src(path) -%}
+{% if path and (path.startswith('http://') or path.startswith('https://')) -%}
+{{ path }}
+{%- else -%}
+{{ url_for('static', filename=path or 'images/bg_abstract_1.jpg') }}
+{%- endif %}
+{%- endmacro %}
+
+{% macro contact_panel() -%}
+<div class="demo-contact-panel">
+    <div>
+        <span class="section-label">Contact path</span>
+        <h2>{{ sections.contact_heading }}</h2>
+        <p>{{ sections.form_prompt }}</p>
+    </div>
+    <form id="lead-form" class="demo-lead-form" action="/api/lead" method="POST">
+        <input type="hidden" name="business_id" value="{{ id }}">
+        <input type="hidden" name="lead_source" value="business_demo">
+        <input type="hidden" name="lead_context" value="{{ vertical.lead_context }}">
+        <div class="form-group">
+            <label for="customer_name">Your name</label>
+            <input type="text" id="customer_name" name="customer_name" autocomplete="name" required>
+        </div>
+        <div class="form-group">
+            <label for="customer_phone">Phone number</label>
+            <input type="tel" id="customer_phone" name="phone" autocomplete="tel" required>
+        </div>
+        <div class="form-group">
+            <label for="inquiry_text">Message</label>
+            <textarea id="inquiry_text" name="inquiry_text" rows="4" placeholder="{{ sections.form_prompt }}"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">{{ hero.primary_cta }}</button>
+        <div class="form-success" id="formSuccess" role="status">Thank you. Your inquiry has been sent.</div>
+    </form>
+</div>
+{%- endmacro %}
+
+{% macro action_row() -%}
+<div class="demo-actions">
+    <a href="#contact" class="btn btn-primary btn-lg">{{ hero.primary_cta }}</a>
+    {% for action in contact_actions %}
+    <a href="{{ action.href }}" class="btn {{ 'btn-whatsapp' if action.kind == 'whatsapp' else 'btn-outline' }} btn-lg" {% if action.kind in ['whatsapp', 'map'] %}target="_blank"{% endif %}>{{ action.label }}</a>
+    {% endfor %}
+</div>
+{%- endmacro %}

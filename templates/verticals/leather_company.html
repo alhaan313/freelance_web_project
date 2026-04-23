@@ -1,0 +1,137 @@
+{% import "components/demo_macros.html" as ui with context %}
+
+<section class="demo-hero demo-hero-leather" id="hero">
+    <div class="container demo-hero-grid">
+        <div class="demo-hero-copy">
+            <div class="hero-badge"><span class="hero-badge-dot"></span>{{ hero.eyebrow }}</div>
+            <h1>{{ hero.headline }}</h1>
+            <p class="lead">{{ hero.intro }}</p>
+            {{ ui.action_row() }}
+        </div>
+        <div class="b2b-capability-panel">
+            <img src="{{ ui.image_src(hero.image) }}" alt="{{ name }} leather capability">
+            <div class="b2b-panel-list">
+                {% for item in credibility %}
+                <p><span>{{ item.label }}</span><strong>{{ item.value }}</strong></p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section demo-capabilities" id="capabilities">
+    <div class="container demo-proof-grid">
+        <div>
+            <span class="section-label">Capabilities</span>
+            <h2>A B2B page must answer procurement questions fast.</h2>
+            <p>{{ name }} is presented through sourcing signals: product types, export readiness, certifications, years established, and a direct quote flow.</p>
+        </div>
+        <div class="demo-mini-grid">
+            {% for item in trust_blocks %}
+            <div class="demo-mini-card">
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.value }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section section-alt" id="services">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">{{ sections.offering_label }}</span>
+            <h2>{{ sections.offering_heading }}</h2>
+            <p>Offerings can be populated from Supabase product rows, product type details, or fallback capabilities while the sales team completes real data.</p>
+        </div>
+        <div class="demo-b2b-grid">
+            {% for item in offerings %}
+            <article class="demo-b2b-card">
+                <img src="{{ ui.image_src(item.image) }}" alt="{{ item.name }}" loading="lazy">
+                <div>
+                    <span>{{ item.type|title }}</span>
+                    <h3>{{ item.name }}</h3>
+                    <p>{{ item.description }}</p>
+                    <a href="#contact">Request specification</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section demo-gallery-section" id="trust">
+    <div class="container">
+        <div class="demo-gallery-head">
+            <div>
+                <span class="section-label">{{ sections.gallery_label }}</span>
+                <h2>Facility, material, and craftsmanship cues.</h2>
+            </div>
+            <p>{{ sections.trust_heading }}</p>
+        </div>
+        <div class="demo-gallery-grid">
+            {% for image in gallery %}
+            <figure>
+                <img src="{{ ui.image_src(image.url) }}" alt="{{ image.caption }}" loading="lazy">
+                <figcaption>{{ image.caption }}</figcaption>
+            </figure>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section demo-quote-band">
+    <div class="container demo-visit-grid">
+        <div>
+            <span class="section-label">Sourcing path</span>
+            <h2>Designed for buyers, not casual browsing.</h2>
+            <p>The CTA asks for procurement detail and routes the lead with context, so follow-up can start with the requirement instead of a generic callback.</p>
+        </div>
+        <div class="demo-visit-list">
+            {% if working_hours_raw %}<p><strong>Business hours</strong>{{ working_hours_raw }}</p>{% endif %}
+            {% if address %}<p><strong>Facility / office</strong>{{ address }}</p>{% endif %}
+            {% if phone %}<p><strong>Sales phone</strong><a href="tel:{{ phone }}">{{ phone }}</a></p>{% endif %}
+            {% if email %}<p><strong>Email</strong><a href="mailto:{{ email }}">{{ email }}</a></p>{% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="section demo-proof-section" id="testimonials">
+    <div class="container demo-proof-grid">
+        <div>
+            <span class="section-label">Buyer confidence</span>
+            <h2>Concise proof blocks instead of consumer-style hype.</h2>
+        </div>
+        <div class="demo-review-list">
+            {% for review in reviews %}
+            <blockquote>
+                <p>{{ review.body }}</p>
+                <cite>{{ review.author }}</cite>
+            </blockquote>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section faq-section" id="faq">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Procurement FAQ</span>
+            <h2>What buyers need before a quote call</h2>
+        </div>
+        <div class="faq-container">
+            {% for faq in faqs %}
+            <div class="faq-item">
+                <button type="button" class="faq-question"><h3>{{ faq.title }}</h3><span class="faq-toggle">+</span></button>
+                <div class="faq-answer"><div class="faq-answer-inner">{{ faq.body }}</div></div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section demo-contact-section" id="contact">
+    <div class="container">
+        {{ ui.contact_panel() }}
+    </div>
+</section>

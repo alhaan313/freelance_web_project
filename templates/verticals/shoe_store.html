@@ -1,0 +1,139 @@
+{% import "components/demo_macros.html" as ui with context %}
+
+<section class="demo-hero demo-hero-retail" id="hero">
+    <div class="container demo-retail-hero-grid">
+        <div class="demo-hero-copy">
+            <div class="hero-badge"><span class="hero-badge-dot"></span>{{ hero.eyebrow }}</div>
+            <h1>{{ hero.headline }}</h1>
+            <p class="lead">{{ hero.intro }}</p>
+            {{ ui.action_row() }}
+        </div>
+        <div class="retail-product-showcase">
+            {% for item in offerings[:3] %}
+            <article>
+                <img src="{{ ui.image_src(item.image) }}" alt="{{ item.name }}">
+                <div>
+                    <strong>{{ item.name }}</strong>
+                    <span>{{ item.price or 'Ask availability' }}</span>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="demo-cred-strip" aria-label="Store details">
+    <div class="container demo-cred-grid">
+        {% for item in credibility %}
+        <div>
+            <span>{{ item.label }}</span>
+            <strong>{{ item.value }}</strong>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section section-alt" id="services">
+    <div class="container">
+        <div class="demo-retail-heading">
+            <div>
+                <span class="section-label">{{ sections.offering_label }}</span>
+                <h2>{{ sections.offering_heading }}</h2>
+            </div>
+            {% if whatsapp %}<a href="https://wa.me/{{ whatsapp }}" target="_blank" class="btn btn-whatsapp">Check size on WhatsApp</a>{% endif %}
+        </div>
+        <div class="demo-shop-grid">
+            {% for item in offerings %}
+            <article class="demo-shop-card">
+                <img src="{{ ui.image_src(item.image) }}" alt="{{ item.name }}" loading="lazy">
+                <div class="demo-shop-body">
+                    <span>{{ item.type|title }}</span>
+                    <h3>{{ item.name }}</h3>
+                    <p>{{ item.description }}</p>
+                    <div>
+                        <strong>{{ item.price or 'Ask for price' }}</strong>
+                        <a href="#contact">Enquire</a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section demo-style-band" id="styles">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Shopping signals</span>
+            <h2>Built around how footwear customers decide.</h2>
+            <p>The demo makes size, style, occasion, store visit, and WhatsApp ordering feel natural instead of hiding them behind generic contact copy.</p>
+        </div>
+        <div class="demo-mini-grid demo-style-grid">
+            {% for item in trust_blocks %}
+            <div class="demo-mini-card">
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.value }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section demo-gallery-section" id="gallery">
+    <div class="container">
+        <div class="demo-gallery-head">
+            <div>
+                <span class="section-label">{{ sections.gallery_label }}</span>
+                <h2>Product imagery with store energy.</h2>
+            </div>
+            {% if address %}<p>{{ address }}</p>{% endif %}
+        </div>
+        <div class="demo-gallery-grid">
+            {% for image in gallery %}
+            <figure>
+                <img src="{{ ui.image_src(image.url) }}" alt="{{ image.caption }}" loading="lazy">
+                <figcaption>{{ image.caption }}</figcaption>
+            </figure>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section demo-visit-band" id="visit">
+    <div class="container demo-visit-grid">
+        <div>
+            <span class="section-label">Visit or order</span>
+            <h2>Customers can act from the card, the hero, or the contact section.</h2>
+            <p>This page is designed for fast local retail conversion: ask on WhatsApp, call the store, or plan a visit.</p>
+        </div>
+        <div class="demo-visit-list">
+            {% if working_hours_raw %}<p><strong>Hours</strong>{{ working_hours_raw }}</p>{% endif %}
+            {% if phone %}<p><strong>Phone</strong><a href="tel:{{ phone }}">{{ phone }}</a></p>{% endif %}
+            {% if whatsapp %}<p><strong>WhatsApp</strong><a href="https://wa.me/{{ whatsapp }}" target="_blank">Check stock</a></p>{% endif %}
+            {% if gmap_link %}<a href="{{ gmap_link }}" target="_blank" class="btn btn-outline">Open Maps</a>{% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="section faq-section" id="faq">
+    <div class="container demo-proof-grid">
+        <div>
+            <span class="section-label">Store FAQ</span>
+            <h2>Answers that reduce purchase hesitation.</h2>
+        </div>
+        <div class="faq-container">
+            {% for faq in faqs %}
+            <div class="faq-item">
+                <button type="button" class="faq-question"><h3>{{ faq.title }}</h3><span class="faq-toggle">+</span></button>
+                <div class="faq-answer"><div class="faq-answer-inner">{{ faq.body }}</div></div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section demo-contact-section" id="contact">
+    <div class="container">
+        {{ ui.contact_panel() }}
+    </div>
+</section>
