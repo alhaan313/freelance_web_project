@@ -2631,6 +2631,25 @@ button {
    RESPONSIVE
    ══════════════════════════════════════════ */
 
+/* ── Large Screens (1400px+) ──────────── */
+@media (min-width: 1400px) {
+    .container {
+        padding: 0 48px;
+    }
+
+    .hero-inner {
+        gap: 80px;
+    }
+
+    .hero-content {
+        max-width: 580px;
+    }
+
+    .section {
+        padding: 120px 0;
+    }
+}
+
 /* ── Tablets & Small Laptops ──────────── */
 @media (max-width: 1024px) {
     .hero-inner {
