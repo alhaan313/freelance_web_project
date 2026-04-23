@@ -129,6 +129,7 @@ body.category-clinic .product-card:hover::after {
 
 body.category-clinic .btn-primary {
     background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: #fff;
     box-shadow: 0 4px 14px rgba(99, 102, 241, .25);
 }
 
@@ -280,6 +281,7 @@ body.category-shoe_store .hero-image img {
 
 body.category-shoe_store .btn-primary {
     background: linear-gradient(135deg, #92400e, #78350f);
+    color: #fff;
     box-shadow: 0 4px 14px rgba(139, 105, 20, .2);
 }
 
@@ -455,6 +457,7 @@ body.category-leather_company .hero-image img {
 
 body.category-leather_company .btn-primary {
     background: linear-gradient(135deg, #047857, #065f46);
+    color: #fff;
     box-shadow: 0 4px 14px rgba(4, 120, 87, .2);
 }
 
@@ -789,7 +792,7 @@ button {
 
 .btn-primary {
     background: var(--brown);
-    color: var(--white);
+    color: #fff;
     box-shadow: 0 4px 14px rgba(0, 0, 0, .15);
 }
 
