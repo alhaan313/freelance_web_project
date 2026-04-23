@@ -41,5 +41,3 @@ download_seq_images.py
 download_stock_images.py
 inspect_excel.py
 
-# Downloaded / generated images (large binary assets)
-static/images/
