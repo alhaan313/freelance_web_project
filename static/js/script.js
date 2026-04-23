@@ -118,6 +118,7 @@
                 const originalText = submitBtn.innerHTML;
                 submitBtn.innerHTML = '<span style="display:inline-flex;gap:6px;align-items:center"><span class="spinner"></span> Sending…</span>';
                 submitBtn.disabled = true; submitBtn.style.opacity = '.7';
+                submitBtn.setAttribute('aria-busy', 'true');
 
                 try {
                     const formData = new FormData(leadForm);
@@ -127,11 +128,18 @@
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(data)
                     });
+                    const payload = await response.json().catch(() => ({}));
                     const successEl = document.getElementById('formSuccess');
                     if (response.ok) {
                         leadForm.reset();
-                        if (successEl) { successEl.classList.add('show'); setTimeout(() => successEl.classList.remove('show'), 5000); }
-                    } else { throw new Error('Server error'); }
+                        if (successEl) {
+                            successEl.textContent = payload.message || 'Thank you. Your inquiry has been sent.';
+                            successEl.style.background = '';
+                            successEl.style.color = '';
+                            successEl.classList.add('show');
+                            setTimeout(() => successEl.classList.remove('show'), 5000);
+                        }
+                    } else { throw new Error(payload.error || 'Server error'); }
                 } catch (err) {
                     const successEl = document.getElementById('formSuccess');
                     if (successEl) {
@@ -142,6 +150,7 @@
                     }
                 } finally {
                     submitBtn.innerHTML = originalText; submitBtn.disabled = false; submitBtn.style.opacity = '';
+                    submitBtn.removeAttribute('aria-busy');
                 }
             });
         }
