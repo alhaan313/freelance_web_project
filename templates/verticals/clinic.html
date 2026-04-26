@@ -19,13 +19,15 @@
             <a href="#contact" class="btn-clinic-book">{{ hero.primary_cta }}</a>
             {% for action in contact_actions if action.kind == 'whatsapp' %}
             <a href="{{ action.href }}" class="btn-wa-green" target="_blank" rel="noopener">
-                {{ ui.wa_icon() }} {{ action.label }}
+                {{ ui.wa_icon() }} WhatsApp
             </a>
             {% endfor %}
-            {% if phone %}
-            <a href="tel:{{ phone }}" class="btn-outline-neutral">{{ ui.phone_icon() }} Call Clinic</a>
-            {% endif %}
         </div>
+        {% if phone %}
+        <a href="tel:{{ phone }}" class="clinic-hero-call-link">
+            {{ ui.phone_icon() }} Call us: {{ phone }}
+        </a>
+        {% endif %}
 
         <div class="clinic-hero-cred">
             {% for item in credibility %}
@@ -54,19 +56,31 @@
 
 </section>
 
-{# ── Treatments strip ─────────────────────── #}
-<div class="clinic-treatments-strip" aria-label="Treatments offered">
+{# ── Treatments strip — infinite loop marquee ── #}
+{# Items are rendered twice so translateX(-50%) creates a seamless loop #}
+<div class="clinic-treatments-strip" aria-label="Treatments offered" aria-hidden="true">
     <div class="clinic-treatments-inner">
-        {% for item in offerings %}
-        <span class="clinic-chip">{{ item.name }}</span>
-        {% endfor %}
-        {# fallback chips if no offerings #}
-        {% if not offerings %}
+        {# First set #}
+        {% if offerings %}
+        {% for item in offerings %}<span class="clinic-chip">{{ item.name }}</span>{% endfor %}
+        {% else %}
         <span class="clinic-chip">General Consultation</span>
         <span class="clinic-chip">Dental Care</span>
         <span class="clinic-chip">Preventive Health</span>
         <span class="clinic-chip">Emergency Support</span>
         <span class="clinic-chip">Follow-up Visits</span>
+        <span class="clinic-chip">Dental Implants</span>
+        {% endif %}
+        {# Duplicate set for seamless loop #}
+        {% if offerings %}
+        {% for item in offerings %}<span class="clinic-chip">{{ item.name }}</span>{% endfor %}
+        {% else %}
+        <span class="clinic-chip">General Consultation</span>
+        <span class="clinic-chip">Dental Care</span>
+        <span class="clinic-chip">Preventive Health</span>
+        <span class="clinic-chip">Emergency Support</span>
+        <span class="clinic-chip">Follow-up Visits</span>
+        <span class="clinic-chip">Dental Implants</span>
         {% endif %}
     </div>
 </div>
