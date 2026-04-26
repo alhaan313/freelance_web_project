@@ -6,20 +6,46 @@
 {%- endif %}
 {%- endmacro %}
 
+{% macro wa_icon() -%}
+<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.553 4.107 1.516 5.832L.057 23.4a.75.75 0 0 0 .916.94l5.688-1.49A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.943 0-3.766-.528-5.328-1.444l-.378-.222-3.928 1.029 1.047-3.82-.247-.393A9.955 9.955 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+{%- endmacro %}
+
+{% macro phone_icon() -%}
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+{%- endmacro %}
+
+{# Mobile sticky bottom bar — renders on all verticals #}
+{% macro mobile_cta_bar() -%}
+<div class="mobile-cta-bar" aria-label="Quick contact">
+    {% if phone %}
+    <a href="tel:{{ phone }}" class="mobile-cta-call">{{ phone_icon() }} Call Now</a>
+    {% endif %}
+    {% for action in contact_actions if action.kind == 'whatsapp' %}
+    <a href="{{ action.href }}" class="mobile-cta-wa" target="_blank" rel="noopener">{{ wa_icon() }} WhatsApp</a>
+    {% endfor %}
+</div>
+{%- endmacro %}
+
+{# Contact panel with WhatsApp-first layout #}
 {% macro contact_panel() -%}
-<div class="demo-contact-panel">
+<div class="v-contact-panel">
     <div>
-        <span class="section-label">Get in touch</span>
+        <span class="clinic-hero-badge" style="font-size:0.68rem; margin-bottom:16px;">Get in touch</span>
         <h2>{{ sections.contact_heading }}</h2>
         <p>{{ sections.form_prompt }}</p>
         {% if phone %}
-        <p style="margin-top:32px; display:flex; align-items:center; gap:12px;">
-            <span style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; font-weight:700; color:var(--text-secondary);">Or call directly</span>
-            <a href="tel:{{ phone }}" style="font-weight:700; color:var(--accent, var(--brown)); font-size:1.05rem;">{{ phone }}</a>
-        </p>
+        <div class="v-contact-phone">
+            <span>Or call directly</span>
+            <a href="tel:{{ phone }}">{{ phone }}</a>
+        </div>
         {% endif %}
+        {% for action in contact_actions if action.kind == 'whatsapp' %}
+        <a href="{{ action.href }}" target="_blank" rel="noopener" class="btn-wa-green" style="margin-top:16px; display:inline-flex; align-items:center; gap:8px; padding:13px 24px; border-radius:999px; font-weight:700; font-size:0.9rem; text-decoration:none; color:#fff; background:#25D366; box-shadow:0 4px 20px rgba(37,211,102,0.3);">
+            {{ wa_icon() }} {{ action.label }}
+        </a>
+        {% endfor %}
     </div>
-    <form id="lead-form" class="demo-lead-form" action="/api/lead" method="POST">
+    <form id="lead-form" class="v-lead-form" action="/api/lead" method="POST">
         <input type="hidden" name="business_id" value="{{ id }}">
         <input type="hidden" name="lead_source" value="business_demo">
         <input type="hidden" name="lead_context" value="{{ vertical.lead_context }}">
@@ -35,18 +61,23 @@
             <label for="inquiry_text">Message</label>
             <textarea id="inquiry_text" name="inquiry_text" rows="4" placeholder="{{ sections.form_prompt }}"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary btn-lg">{{ hero.primary_cta }}</button>
+        <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">{{ hero.primary_cta }}</button>
         <div class="form-success" id="formSuccess" role="status">Thank you — your inquiry has been sent.</div>
     </form>
 </div>
 {%- endmacro %}
 
-{% macro action_row() -%}
-<div class="demo-actions">
-    <a href="#contact" class="btn btn-primary btn-lg">{{ hero.primary_cta }}</a>
-    {% for action in contact_actions %}
-    <a href="{{ action.href }}" class="btn {{ 'btn-whatsapp' if action.kind == 'whatsapp' else 'btn-outline' }} btn-lg"
-        {% if action.kind in ['whatsapp', 'map'] %}target="_blank"{% endif %}>{{ action.label }}</a>
+{# Action row (hero CTAs) — used by verticals that want a simple row #}
+{% macro action_row(primary_class='btn-clinic-book', show_wa=true) -%}
+<div style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom:36px;">
+    <a href="#contact" class="{{ primary_class }}">{{ hero.primary_cta }}</a>
+    {% if show_wa %}
+    {% for action in contact_actions if action.kind == 'whatsapp' %}
+    <a href="{{ action.href }}" class="btn-wa-green" target="_blank" rel="noopener">{{ wa_icon() }} {{ action.label }}</a>
+    {% endfor %}
+    {% endif %}
+    {% for action in contact_actions if action.kind not in ['whatsapp'] %}
+    <a href="{{ action.href }}" class="btn-outline-neutral" {% if action.kind == 'map' %}target="_blank" rel="noopener"{% endif %}>{{ action.label }}</a>
     {% endfor %}
 </div>
 {%- endmacro %}

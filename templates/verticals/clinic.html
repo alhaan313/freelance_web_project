@@ -1,98 +1,124 @@
 {% import "components/demo_macros.html" as ui with context %}
 
-{# ── Hero: text-first on mobile, split on desktop ── #}
-<section class="demo-hero demo-hero-clinic" id="hero">
-    <div class="demo-hero-grid">
+{# ── Mobile sticky bar ─────────────────────── #}
+{{ ui.mobile_cta_bar() }}
 
-        {# LEFT: copy — always rendered first in DOM (mobile priority) #}
-        <div class="demo-hero-copy">
-            <div class="hero-badge"><span class="hero-badge-dot"></span>{{ hero.eyebrow }}</div>
-            <h1>{{ hero.headline }}</h1>
-            <p class="lead">{{ hero.intro }}</p>
-            {{ ui.action_row() }}
+{# ── Hero: split — copy left, image right ─── #}
+<section class="clinic-hero" id="hero">
 
-            {# Mobile-only: doctor chip shown inline under CTAs instead of a full image panel #}
-            <div class="clinic-doctor-chip">
-                <div class="clinic-doctor-avatar">
-                    <img src="{{ ui.image_src('images/feat_clinic_1.jpg') }}" alt="{{ doctor_name or name }}">
-                </div>
-                <div>
-                    <span>Specialist</span>
-                    <strong>{{ doctor_name or name }}</strong>
-                    <p>{{ qualification or specialization or 'Appointment-led care' }}</p>
-                </div>
-            </div>
+    {# LEFT: copy #}
+    <div class="clinic-hero-copy">
+        <div class="clinic-hero-badge">
+            <span class="clinic-hero-badge-dot"></span>
+            {{ hero.eyebrow }}
+        </div>
+        <h1>{{ hero.headline }}</h1>
+        <p class="lead">{{ hero.intro }}</p>
+
+        <div class="clinic-hero-actions">
+            <a href="#contact" class="btn-clinic-book">{{ hero.primary_cta }}</a>
+            {% for action in contact_actions if action.kind == 'whatsapp' %}
+            <a href="{{ action.href }}" class="btn-wa-green" target="_blank" rel="noopener">
+                {{ ui.wa_icon() }} {{ action.label }}
+            </a>
+            {% endfor %}
+            {% if phone %}
+            <a href="tel:{{ phone }}" class="btn-outline-neutral">{{ ui.phone_icon() }} Call Clinic</a>
+            {% endif %}
         </div>
 
-        {# RIGHT: full-bleed hero image — hidden on mobile #}
-        <div class="clinic-hero-card">
-            <img src="{{ ui.image_src(hero.image) }}" alt="{{ name }} clinic environment">
-            <div class="clinic-card-meta">
-                <span>Specialist</span>
-                <strong>{{ doctor_name or name }}</strong>
-                <p>{{ qualification or specialization or 'Appointment-led patient care' }}</p>
+        <div class="clinic-hero-cred">
+            {% for item in credibility %}
+            <div class="clinic-hero-cred-item">
+                <span>{{ item.label }}</span>
+                <strong>{{ item.value }}</strong>
             </div>
+            {% endfor %}
         </div>
-
     </div>
+
+    {# RIGHT: hero image with floating doctor card #}
+    <div class="clinic-hero-image">
+        <img src="{{ ui.image_src(hero.image) }}" alt="{{ name }} clinic" loading="eager">
+        <div class="clinic-doctor-float">
+            <div class="clinic-doctor-avatar">
+                <img src="{{ ui.image_src('images/feat_clinic_1.jpg') }}" alt="{{ doctor_name or name }}">
+            </div>
+            <div>
+                <span class="doc-label">Specialist</span>
+                <strong class="doc-name">{{ doctor_name or name }}</strong>
+                <p class="doc-qual">{{ qualification or specialization or 'Appointment-led care' }}</p>
+            </div>
+        </div>
+    </div>
+
 </section>
 
-{# ── Credibility strip ──────────────────────────── #}
-<section class="demo-cred-strip" aria-label="Clinic at a glance">
-    <div class="container demo-cred-grid">
-        {% for item in credibility %}
-        <div>
-            <span>{{ item.label }}</span>
-            <strong>{{ item.value }}</strong>
-        </div>
+{# ── Treatments strip ─────────────────────── #}
+<div class="clinic-treatments-strip" aria-label="Treatments offered">
+    <div class="clinic-treatments-inner">
+        {% for item in offerings %}
+        <span class="clinic-chip">{{ item.name }}</span>
         {% endfor %}
+        {# fallback chips if no offerings #}
+        {% if not offerings %}
+        <span class="clinic-chip">General Consultation</span>
+        <span class="clinic-chip">Dental Care</span>
+        <span class="clinic-chip">Preventive Health</span>
+        <span class="clinic-chip">Emergency Support</span>
+        <span class="clinic-chip">Follow-up Visits</span>
+        {% endif %}
     </div>
-</section>
+</div>
 
-{# ── Doctor & trust — NO image, bento grid of trust blocks ── #}
-<section class="section demo-split" id="doctor">
-    <div class="container">
-        <div class="clinic-trust-layout">
+{# ── Doctor & trust bento ─────────────────── #}
+<section class="clinic-bento-section" id="doctor">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
+        <div class="clinic-bento-layout">
 
-            <div class="clinic-trust-header reveal">
+            <div class="clinic-bento-header reveal">
                 <span class="section-label">Doctor &amp; care</span>
                 <h2>Everything a patient needs before they call.</h2>
-                <p>{{ name }} presents doctor credentials, treatment clarity, timings, and a direct contact path — all above the fold on mobile.</p>
+                <p>{{ name }} presents doctor credentials, treatment clarity, timings, and a direct contact path — all visible without scrolling on mobile.</p>
             </div>
 
             <div class="clinic-bento-grid">
                 {% for item in trust_blocks %}
-                <div class="clinic-bento-card reveal">
+                <div class="clinic-bento-card reveal" data-delay="{{ loop.index0 * 0.07 }}s">
                     <span class="clinic-bento-label">{{ item.title }}</span>
                     <p>{{ item.value }}</p>
                 </div>
                 {% endfor %}
 
-                {# Gallery peek — uses a different clinic image, not the hero #}
                 <div class="clinic-bento-image reveal">
                     <img src="{{ ui.image_src('images/about_clinic.jpg') }}" alt="{{ name }} care environment" loading="lazy">
                     <div class="clinic-bento-image-tag">Our environment</div>
                 </div>
+
+                <a href="#contact" class="clinic-bento-cta reveal">
+                    <span>Book your appointment today</span>
+                    <span class="clinic-bento-cta-arrow">→</span>
+                </a>
             </div>
 
         </div>
     </div>
 </section>
 
-{# ── Treatments ─────────────────────────────────── #}
-<section class="section section-alt" id="services">
-    <div class="container">
-        <div class="section-header reveal">
+{# ── Treatments / services ─────────────────── #}
+<section class="clinic-services-section" id="services">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
+        <div class="clinic-services-header reveal">
             <span class="section-label">{{ sections.offering_label }}</span>
             <h2>{{ sections.offering_heading }}</h2>
             <p>Treatment cards pull from the database — structured around how patients actually decide.</p>
         </div>
-        <div class="demo-offering-grid">
+        <div class="clinic-services-grid">
             {% for item in offerings %}
-            <article class="demo-offering-card reveal">
+            <article class="clinic-service-card reveal" data-delay="{{ loop.index0 * 0.07 }}s">
                 <img src="{{ ui.image_src(item.image) }}" alt="{{ item.name }}" loading="lazy">
-                <div>
-                    <span>{{ item.type | title }}</span>
+                <div class="clinic-service-body">
+                    <span class="clinic-service-type">{{ item.type | title }}</span>
                     <h3>{{ item.name }}</h3>
                     <p>{{ item.description }}</p>
                     <a href="#contact">Ask about this →</a>
@@ -103,66 +129,75 @@
     </div>
 </section>
 
-{# ── Visit & timings band ───────────────────────── #}
-<section class="section demo-visit-band" id="visit">
-    <div class="container demo-visit-grid">
-        <div class="reveal">
-            <span class="section-label">Timings &amp; location</span>
-            <h2>Find us, call us, visit us.</h2>
-            <p>Hours, address, and directions — right next to the contact form, not three scrolls away.</p>
-        </div>
-        <div class="demo-visit-list reveal">
-            {% if working_hours_raw %}<p><strong>Hours</strong>{{ working_hours_raw }}</p>{% endif %}
-            {% if address %}<p><strong>Address</strong>{{ address }}</p>{% endif %}
-            {% if phone %}<p><strong>Phone</strong><a href="tel:{{ phone }}">{{ phone }}</a></p>{% endif %}
-            {% if gmap_link %}<a href="{{ gmap_link }}" target="_blank" class="btn btn-outline" style="margin-top:20px;">Open in Maps</a>{% endif %}
-        </div>
-    </div>
-</section>
-
-{# ── Patient reviews ────────────────────────────── #}
-<section class="section demo-proof-section" id="testimonials">
-    <div class="container demo-proof-grid">
-        <div class="reveal">
-            <span class="section-label">{{ sections.trust_heading }}</span>
-            <h2>What patients say.</h2>
-            <p>Restrained, honest reviews — no unverifiable medical claims.</p>
-        </div>
-        <div class="demo-review-list">
-            {% for review in reviews %}
-            <blockquote class="reveal">
-                <p>{{ review.body }}</p>
-                <cite>{{ review.author }}</cite>
-            </blockquote>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-{# ── FAQ ────────────────────────────────────────── #}
-<section class="section faq-section" id="faq">
-    <div class="container">
-        <div class="section-header reveal">
-            <span class="section-label">FAQ</span>
-            <h2>Common questions before booking</h2>
-        </div>
-        <div class="faq-container">
-            {% for faq in faqs %}
-            <div class="faq-item">
-                <button type="button" class="faq-question">
-                    <h3>{{ faq.title }}</h3>
-                    <span class="faq-toggle">+</span>
-                </button>
-                <div class="faq-answer"><div class="faq-answer-inner">{{ faq.body }}</div></div>
+{# ── Patient reviews ──────────────────────── #}
+<section class="clinic-reviews-section" id="testimonials">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
+        <div class="clinic-reviews-layout">
+            <div class="clinic-reviews-left reveal">
+                <span style="display:inline-block; font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; padding:5px 12px; border-radius:999px; background:rgba(255,255,255,0.1); color:rgba(249,246,241,0.45); margin-bottom:16px;">{{ sections.trust_heading }}</span>
+                <h2>What patients say.</h2>
+                <p>Restrained, honest reviews — no unverifiable medical claims.</p>
             </div>
-            {% endfor %}
+            <div class="clinic-review-list">
+                {% for review in reviews %}
+                <blockquote class="clinic-review-block reveal" data-delay="{{ loop.index0 * 0.1 }}s">
+                    <div class="clinic-review-stars">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                    <p>{{ review.body }}</p>
+                    <cite>{{ review.author }}</cite>
+                </blockquote>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </section>
 
-{# ── Contact ────────────────────────────────────── #}
-<section class="section demo-contact-section" id="contact">
-    <div class="container">
+{# ── Visit & timings ──────────────────────── #}
+<section class="clinic-visit-band" id="visit">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
+        <div class="clinic-visit-grid">
+            <div class="reveal">
+                <span class="section-label" style="background:rgba(26,26,26,0.07); color:rgba(26,26,26,0.5);">Timings &amp; location</span>
+                <h2>Find us, call us, visit us.</h2>
+                <p>Hours, address, and directions — right next to the contact form, not three scrolls away.</p>
+            </div>
+            <div class="clinic-info-list reveal">
+                {% if working_hours_raw %}<p><strong>Hours</strong>{{ working_hours_raw }}</p>{% endif %}
+                {% if address %}<p><strong>Address</strong>{{ address }}</p>{% endif %}
+                {% if phone %}<p><strong>Phone</strong><a href="tel:{{ phone }}">{{ phone }}</a></p>{% endif %}
+                {% if gmap_link %}<p><strong>Maps</strong><a href="{{ gmap_link }}" target="_blank" rel="noopener">Open directions →</a></p>{% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{# ── FAQ ──────────────────────────────────── #}
+<section class="clinic-faq-section" id="faq">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
+        <div class="clinic-faq-inner">
+            <div class="reveal">
+                <span class="section-label" style="background:rgba(26,26,26,0.07); color:rgba(26,26,26,0.5);">FAQ</span>
+                <h2>Common questions before booking</h2>
+            </div>
+            <div class="faq-container">
+                {% for faq in faqs %}
+                <div class="faq-item">
+                    <button type="button" class="faq-question">
+                        <h3>{{ faq.title }}</h3>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer"><div class="faq-answer-inner">{{ faq.body }}</div></div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{# ── Contact ──────────────────────────────── #}
+<section class="clinic-contact-section" id="contact">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
         {{ ui.contact_panel() }}
     </div>
 </section>

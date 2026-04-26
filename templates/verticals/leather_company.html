@@ -1,61 +1,82 @@
 {% import "components/demo_macros.html" as ui with context %}
 
-{# ── Hero ───────────────────────────────────── #}
-<section class="demo-hero demo-hero-leather" id="hero">
-    <div class="demo-hero-grid">
-        <div class="demo-hero-copy">
-            <div class="hero-badge"><span class="hero-badge-dot"></span>{{ hero.eyebrow }}</div>
-            <h1>{{ hero.headline }}</h1>
-            <p class="lead">{{ hero.intro }}</p>
-            {{ ui.action_row() }}
-        </div>
-        <div class="b2b-capability-panel">
-            <img src="{{ ui.image_src(hero.image) }}" alt="{{ name }} leather capability">
-            <div class="b2b-panel-list">
-                {% for item in credibility %}
-                <p>
-                    <span>{{ item.label }}</span>
-                    <strong>{{ item.value }}</strong>
-                </p>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-</section>
+{# ── Mobile sticky bar ─────────────────────── #}
+{{ ui.mobile_cta_bar() }}
 
-{# ── Capabilities split ─────────────────────── #}
-<section class="section demo-capabilities" id="capabilities">
-    <div class="container demo-proof-grid">
-        <div class="reveal">
-            <span class="section-label">Capabilities</span>
-            <h2>A B2B page must answer procurement questions fast.</h2>
-            <p>{{ name }} is presented through sourcing signals: product types, export readiness, certifications, years established, and a direct quote flow.</p>
+{# ── Hero: full-screen dark cinematic ──────── #}
+<section class="leather-hero" id="hero">
+
+    {# Full-bleed background image with heavy dark overlay #}
+    <div class="leather-hero-bg">
+        <img src="{{ ui.image_src(hero.image) }}" alt="{{ name }} leather" loading="eager">
+    </div>
+
+    {# Content sits at bottom of viewport #}
+    <div class="leather-hero-content">
+        <div class="leather-hero-badge">
+            <span class="leather-hero-badge-dot"></span>
+            {{ hero.eyebrow }}
         </div>
-        <div class="demo-mini-grid">
-            {% for item in trust_blocks %}
-            <div class="demo-mini-card reveal">
-                <h3>{{ item.title }}</h3>
-                <p>{{ item.value }}</p>
-            </div>
+        <h1>{{ hero.headline }}</h1>
+        <p class="lead">{{ hero.intro }}</p>
+
+        {# Inline trust badges — visible instantly #}
+        <div class="leather-trust-badges">
+            {% for item in credibility %}
+            <span class="leather-trust-badge">{{ item.label }}: {{ item.value }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="leather-hero-actions">
+            <a href="#contact" class="btn-leather-quote">Request a Quote →</a>
+            {% for action in contact_actions if action.kind == 'whatsapp' %}
+            <a href="{{ action.href }}" class="btn-leather-ghost" target="_blank" rel="noopener">
+                {{ ui.wa_icon() }} {{ action.label }}
+            </a>
             {% endfor %}
         </div>
     </div>
+
 </section>
 
-{# ── Products grid ──────────────────────────── #}
-<section class="section section-alt" id="services">
-    <div class="container">
-        <div class="section-header reveal">
-            <span class="section-label">{{ sections.offering_label }}</span>
+{# ── Capabilities section ──────────────────── #}
+<section class="leather-capabilities-section" id="capabilities">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
+        <div class="leather-caps-layout">
+
+            <div class="leather-caps-header reveal">
+                <span class="section-label" style="display:inline-block; font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; padding:5px 12px; border-radius:999px; background:rgba(26,26,26,0.07); color:rgba(26,26,26,0.5); margin-bottom:16px;">Capabilities</span>
+                <h2>A B2B page must answer procurement questions fast.</h2>
+                <p>{{ name }} is presented through sourcing signals: product types, export readiness, certifications, years established, and a direct quote flow.</p>
+            </div>
+
+            <div class="leather-caps-grid">
+                {% for item in trust_blocks %}
+                <div class="leather-cap-card reveal" data-delay="{{ loop.index0 * 0.07 }}s">
+                    <h3>{{ item.title }}</h3>
+                    <p>{{ item.value }}</p>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{# ── Products / specification grid ─────────── #}
+<section class="leather-products-section" id="services">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
+        <div class="leather-products-header reveal">
+            <span class="section-label" style="display:inline-block; font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; padding:5px 12px; border-radius:999px; background:rgba(26,26,26,0.07); color:rgba(26,26,26,0.5); margin-bottom:16px;">{{ sections.offering_label }}</span>
             <h2>{{ sections.offering_heading }}</h2>
             <p>Offerings populate from the database — product type details, with fallback copy while real data is completed.</p>
         </div>
-        <div class="demo-b2b-grid">
+        <div class="leather-products-grid">
             {% for item in offerings %}
-            <article class="demo-b2b-card reveal">
+            <article class="leather-product-card reveal" data-delay="{{ loop.index0 * 0.07 }}s">
                 <img src="{{ ui.image_src(item.image) }}" alt="{{ item.name }}" loading="lazy">
-                <div>
-                    <span>{{ item.type | title }}</span>
+                <div class="leather-product-body">
+                    <span class="leather-product-type">{{ item.type | title }}</span>
                     <h3>{{ item.name }}</h3>
                     <p>{{ item.description }}</p>
                     <a href="#contact">Request specification →</a>
@@ -66,86 +87,82 @@
     </div>
 </section>
 
-{# ── Gallery / facility ─────────────────────── #}
-<section class="section demo-gallery-section" id="trust">
-    <div class="container">
-        <div class="demo-gallery-head reveal">
-            <div>
-                <span class="section-label">{{ sections.gallery_label }}</span>
-                <h2>Facility, material &amp; craftsmanship cues.</h2>
+{# ── Gallery / facility cinematic strip ────── #}
+<div class="leather-gallery-strip" id="trust" role="region" aria-label="{{ sections.gallery_label }}">
+    {% for image in gallery %}
+    <figure class="reveal" data-delay="{{ loop.index0 * 0.1 }}s">
+        <img src="{{ ui.image_src(image.url) }}" alt="{{ image.caption }}" loading="lazy">
+        <figcaption>{{ image.caption }}</figcaption>
+    </figure>
+    {% endfor %}
+</div>
+
+{# ── Business info dark band ───────────────── #}
+<section class="leather-info-band">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
+        <div class="leather-info-grid">
+            <div class="reveal">
+                <span style="display:inline-block; font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; padding:5px 12px; border-radius:999px; background:rgba(255,255,255,0.08); color:rgba(249,246,241,0.38); margin-bottom:16px;">Sourcing path</span>
+                <h2>Designed for buyers, not casual browsing.</h2>
+                <p>The CTA asks for procurement detail and routes the lead with context — follow-up starts with the requirement, not a generic callback.</p>
             </div>
-            <p>{{ sections.trust_heading }}</p>
-        </div>
-        <div class="demo-gallery-grid">
-            {% for image in gallery %}
-            <figure class="reveal">
-                <img src="{{ ui.image_src(image.url) }}" alt="{{ image.caption }}" loading="lazy">
-                <figcaption>{{ image.caption }}</figcaption>
-            </figure>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-{# ── Quote / sourcing band ──────────────────── #}
-<section class="section demo-quote-band">
-    <div class="container demo-visit-grid">
-        <div class="reveal">
-            <span class="section-label" style="background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.55); border:none;">Sourcing path</span>
-            <h2>Designed for buyers, not casual browsing.</h2>
-            <p>The CTA asks for procurement detail and routes the lead with context — follow-up starts with the requirement, not a generic callback.</p>
-        </div>
-        <div class="demo-visit-list reveal">
-            {% if working_hours_raw %}<p><strong>Business hours</strong>{{ working_hours_raw }}</p>{% endif %}
-            {% if address %}<p><strong>Facility / office</strong>{{ address }}</p>{% endif %}
-            {% if phone %}<p><strong>Sales phone</strong><a href="tel:{{ phone }}">{{ phone }}</a></p>{% endif %}
-            {% if email %}<p><strong>Email</strong><a href="mailto:{{ email }}">{{ email }}</a></p>{% endif %}
-        </div>
-    </div>
-</section>
-
-{# ── Reviews ────────────────────────────────── #}
-<section class="section demo-proof-section" id="testimonials">
-    <div class="container demo-proof-grid">
-        <div class="reveal">
-            <span class="section-label">Buyer confidence</span>
-            <h2>Concise proof blocks instead of consumer-style hype.</h2>
-        </div>
-        <div class="demo-review-list">
-            {% for review in reviews %}
-            <blockquote class="reveal">
-                <p>{{ review.body }}</p>
-                <cite>{{ review.author }}</cite>
-            </blockquote>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-{# ── FAQ ────────────────────────────────────── #}
-<section class="section faq-section" id="faq">
-    <div class="container">
-        <div class="section-header reveal">
-            <span class="section-label">Procurement FAQ</span>
-            <h2>What buyers need before a quote call</h2>
-        </div>
-        <div class="faq-container">
-            {% for faq in faqs %}
-            <div class="faq-item">
-                <button type="button" class="faq-question">
-                    <h3>{{ faq.title }}</h3>
-                    <span class="faq-toggle">+</span>
-                </button>
-                <div class="faq-answer"><div class="faq-answer-inner">{{ faq.body }}</div></div>
+            <div class="leather-info-list reveal">
+                {% if working_hours_raw %}<p><strong>Business hours</strong>{{ working_hours_raw }}</p>{% endif %}
+                {% if address %}<p><strong>Facility / office</strong>{{ address }}</p>{% endif %}
+                {% if phone %}<p><strong>Sales phone</strong><a href="tel:{{ phone }}">{{ phone }}</a></p>{% endif %}
+                {% if email %}<p><strong>Email</strong><a href="mailto:{{ email }}">{{ email }}</a></p>{% endif %}
             </div>
-            {% endfor %}
         </div>
     </div>
 </section>
 
-{# ── Contact ─────────────────────────────────── #}
-<section class="section demo-contact-section" id="contact">
-    <div class="container">
+{# ── Buyer reviews ────────────────────────── #}
+<section class="leather-reviews-section" id="testimonials">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
+        <div class="leather-reviews-layout">
+            <div class="leather-reviews-left reveal">
+                <span class="section-label" style="display:inline-block; font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; padding:5px 12px; border-radius:999px; background:rgba(26,26,26,0.07); color:rgba(26,26,26,0.5); margin-bottom:16px;">Buyer confidence</span>
+                <h2>Concise proof blocks instead of consumer-style hype.</h2>
+                <p>B2B buyers respond to specificity and restraint — not vague superlatives.</p>
+            </div>
+            <div class="leather-review-list">
+                {% for review in reviews %}
+                <blockquote class="leather-review-block reveal" data-delay="{{ loop.index0 * 0.1 }}s">
+                    <p>{{ review.body }}</p>
+                    <cite>{{ review.author }}</cite>
+                </blockquote>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{# ── FAQ ──────────────────────────────────── #}
+<section class="leather-faq-section" id="faq">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
+        <div class="leather-faq-inner">
+            <div class="reveal">
+                <span class="section-label" style="display:inline-block; font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; padding:5px 12px; border-radius:999px; background:rgba(26,26,26,0.07); color:rgba(26,26,26,0.5); margin-bottom:16px;">Procurement FAQ</span>
+                <h2>What buyers need before a quote call</h2>
+            </div>
+            <div class="faq-container">
+                {% for faq in faqs %}
+                <div class="faq-item">
+                    <button type="button" class="faq-question">
+                        <h3>{{ faq.title }}</h3>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer"><div class="faq-answer-inner">{{ faq.body }}</div></div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{# ── Contact ──────────────────────────────── #}
+<section class="leather-contact-section" id="contact">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
         {{ ui.contact_panel() }}
     </div>
 </section>

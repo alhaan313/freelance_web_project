@@ -1,31 +1,50 @@
 {% import "components/demo_macros.html" as ui with context %}
 
-{# ── Hero ───────────────────────────────────── #}
-<section class="demo-hero demo-hero-retail" id="hero">
-    <div class="demo-retail-hero-grid">
-        <div class="demo-hero-copy">
-            <div class="hero-badge"><span class="hero-badge-dot"></span>{{ hero.eyebrow }}</div>
-            <h1>{{ hero.headline }}</h1>
-            <p class="lead">{{ hero.intro }}</p>
-            {{ ui.action_row() }}
+{# ── Mobile sticky bar ─────────────────────── #}
+{{ ui.mobile_cta_bar() }}
+
+{# ── Hero: dark left copy + full-bleed image right ── #}
+<section class="shoe-hero" id="hero">
+
+    {# LEFT: warm dark copy with WhatsApp as THE primary CTA #}
+    <div class="shoe-hero-copy">
+        <div class="shoe-hero-badge">
+            <span class="shoe-hero-badge-dot"></span>
+            {{ hero.eyebrow }}
         </div>
-        <div class="retail-product-showcase">
-            {% for item in offerings[:3] %}
-            <article>
-                <img src="{{ ui.image_src(item.image) }}" alt="{{ item.name }}">
-                <div>
-                    <strong>{{ item.name }}</strong>
-                    <span>{{ item.price or 'Ask availability' }}</span>
-                </div>
-            </article>
+        <h1>{{ hero.headline }}</h1>
+        <p class="lead">{{ hero.intro }}</p>
+
+        <div class="shoe-hero-actions">
+            {# WhatsApp is the PRIMARY CTA for shoe stores — Indian retail lives here #}
+            {% for action in contact_actions if action.kind == 'whatsapp' %}
+            <a href="{{ action.href }}" class="btn-shoe-wa-primary" target="_blank" rel="noopener">
+                {{ ui.wa_icon() }} Check Size on WhatsApp
+            </a>
+            {% endfor %}
+            <a href="#services" class="btn-shoe-ghost">Browse Collection</a>
+        </div>
+
+        <div class="shoe-hero-cred">
+            {% for item in credibility %}
+            <div class="shoe-hero-cred-item">
+                <span>{{ item.label }}</span>
+                <strong>{{ item.value }}</strong>
+            </div>
             {% endfor %}
         </div>
     </div>
+
+    {# RIGHT: full-bleed product image #}
+    <div class="shoe-hero-image">
+        <img src="{{ ui.image_src(hero.image) }}" alt="{{ name }} footwear" loading="eager">
+    </div>
+
 </section>
 
-{# ── Credibility strip ──────────────────────── #}
-<section class="demo-cred-strip" aria-label="Store details">
-    <div class="container demo-cred-grid">
+{# ── Credibility strip ─────────────────────── #}
+<div class="shoe-cred-strip" aria-label="Store at a glance">
+    <div class="shoe-cred-grid">
         {% for item in credibility %}
         <div>
             <span>{{ item.label }}</span>
@@ -33,31 +52,44 @@
         </div>
         {% endfor %}
     </div>
-</section>
+</div>
 
-{# ── Product grid ───────────────────────────── #}
-<section class="section section-alt" id="services">
-    <div class="container">
-        <div class="demo-retail-heading reveal">
+{# ── Product grid ─────────────────────────── #}
+<section class="shoe-products-section" id="services">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
+        <div class="shoe-products-head reveal">
             <div>
-                <span class="section-label">{{ sections.offering_label }}</span>
+                <span class="section-label" style="display:inline-block; font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; padding:5px 12px; border-radius:999px; background:rgba(26,26,26,0.07); color:rgba(26,26,26,0.5); margin-bottom:12px;">{{ sections.offering_label }}</span>
                 <h2>{{ sections.offering_heading }}</h2>
             </div>
             {% if whatsapp %}
-            <a href="https://wa.me/{{ whatsapp }}" target="_blank" class="btn btn-whatsapp">Check size on WhatsApp</a>
+            <a href="https://wa.me/{{ whatsapp }}" target="_blank" rel="noopener" class="btn-shoe-wa-primary" style="white-space:nowrap; font-size:0.88rem; padding:12px 22px;">
+                {{ ui.wa_icon() }} Order on WhatsApp
+            </a>
             {% endif %}
         </div>
-        <div class="demo-shop-grid">
+        <div class="shoe-shop-grid">
             {% for item in offerings %}
-            <article class="demo-shop-card reveal">
-                <img src="{{ ui.image_src(item.image) }}" alt="{{ item.name }}" loading="lazy">
-                <div class="demo-shop-body">
-                    <span>{{ item.type | title }}</span>
+            <article class="shoe-shop-card reveal" data-delay="{{ loop.index0 * 0.07 }}s">
+                <div class="shoe-card-img">
+                    <img src="{{ ui.image_src(item.image) }}" alt="{{ item.name }}" loading="lazy">
+                    {% if item.price %}
+                    <span class="shoe-price-badge">{{ item.price }}</span>
+                    {% else %}
+                    <span class="shoe-price-badge">Ask price</span>
+                    {% endif %}
+                </div>
+                <div class="shoe-card-body">
+                    <span class="shoe-card-type">{{ item.type | title }}</span>
                     <h3>{{ item.name }}</h3>
                     <p>{{ item.description }}</p>
-                    <div>
-                        <strong>{{ item.price or 'Ask for price' }}</strong>
-                        <a href="#contact">Enquire →</a>
+                    <div class="shoe-card-footer">
+                        {% if whatsapp %}
+                        <a href="https://wa.me/{{ whatsapp }}?text=Hi%2C+I%27m+interested+in+{{ item.name | urlencode }}" target="_blank" rel="noopener" class="shoe-card-wa">
+                            {{ ui.wa_icon() }} Ask
+                        </a>
+                        {% endif %}
+                        <a href="#contact" class="shoe-card-enquire">Enquire →</a>
                     </div>
                 </div>
             </article>
@@ -66,38 +98,40 @@
     </div>
 </section>
 
-{# ── Style / trust band ─────────────────────── #}
-<section class="section demo-style-band" id="styles">
-    <div class="container">
-        <div class="section-header reveal" style="text-align:left; max-width:640px;">
-            <span class="section-label" style="background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.6); border:none;">Shopping signals</span>
-            <h2>Built around how footwear customers decide.</h2>
-            <p>Size, style, occasion, store visit, and WhatsApp ordering — made natural instead of hidden behind generic contact copy.</p>
-        </div>
-        <div class="demo-mini-grid demo-style-grid">
-            {% for item in trust_blocks %}
-            <div class="demo-mini-card reveal">
-                <h3>{{ item.title }}</h3>
-                <p>{{ item.value }}</p>
+{# ── Shopping signals / trust band ─────────── #}
+<section class="shoe-trust-band" id="styles">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
+        <div class="shoe-trust-inner">
+            <div class="reveal">
+                <span style="display:inline-block; font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; padding:5px 12px; border-radius:999px; background:rgba(255,255,255,0.08); color:rgba(251,248,243,0.4); margin-bottom:16px;">Shopping signals</span>
+                <h2>Built around how footwear customers decide.</h2>
+                <p>Size, style, occasion, store visit, and WhatsApp ordering — made natural instead of hidden behind generic contact copy.</p>
             </div>
-            {% endfor %}
+            <div class="shoe-trust-grid">
+                {% for item in trust_blocks %}
+                <div class="shoe-trust-card reveal" data-delay="{{ loop.index0 * 0.07 }}s">
+                    <h3>{{ item.title }}</h3>
+                    <p>{{ item.value }}</p>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </section>
 
-{# ── Gallery ────────────────────────────────── #}
-<section class="section demo-gallery-section" id="gallery">
-    <div class="container">
-        <div class="demo-gallery-head reveal">
+{# ── Gallery ──────────────────────────────── #}
+<section class="shoe-gallery-section" id="gallery">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
+        <div class="shoe-gallery-head reveal">
             <div>
-                <span class="section-label">{{ sections.gallery_label }}</span>
+                <span class="section-label" style="display:inline-block; font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; padding:5px 12px; border-radius:999px; background:rgba(26,26,26,0.07); color:rgba(26,26,26,0.5); margin-bottom:12px;">{{ sections.gallery_label }}</span>
                 <h2>Product imagery with store energy.</h2>
             </div>
             {% if address %}<p>{{ address }}</p>{% endif %}
         </div>
-        <div class="demo-gallery-grid">
+        <div class="shoe-gallery-grid">
             {% for image in gallery %}
-            <figure class="reveal">
+            <figure class="reveal" data-delay="{{ loop.index0 * 0.08 }}s">
                 <img src="{{ ui.image_src(image.url) }}" alt="{{ image.caption }}" loading="lazy">
                 <figcaption>{{ image.caption }}</figcaption>
             </figure>
@@ -106,47 +140,57 @@
     </div>
 </section>
 
-{# ── Visit band ─────────────────────────────── #}
-<section class="section demo-visit-band" id="visit">
-    <div class="container demo-visit-grid">
-        <div class="reveal">
-            <span class="section-label">Visit or order</span>
-            <h2>Customers can act from the card, the hero, or here.</h2>
-            <p>Designed for fast local retail conversion: ask on WhatsApp, call the store, or plan a visit.</p>
-        </div>
-        <div class="demo-visit-list reveal">
-            {% if working_hours_raw %}<p><strong>Hours</strong>{{ working_hours_raw }}</p>{% endif %}
-            {% if phone %}<p><strong>Phone</strong><a href="tel:{{ phone }}">{{ phone }}</a></p>{% endif %}
-            {% if whatsapp %}<p><strong>WhatsApp</strong><a href="https://wa.me/{{ whatsapp }}" target="_blank">Check stock</a></p>{% endif %}
-            {% if gmap_link %}<a href="{{ gmap_link }}" target="_blank" class="btn btn-outline" style="margin-top:20px;">Open in Maps</a>{% endif %}
-        </div>
-    </div>
-</section>
-
-{# ── FAQ ────────────────────────────────────── #}
-<section class="section faq-section" id="faq">
-    <div class="container demo-proof-grid">
-        <div class="reveal">
-            <span class="section-label">Store FAQ</span>
-            <h2>Answers that reduce purchase hesitation.</h2>
-        </div>
-        <div class="faq-container">
-            {% for faq in faqs %}
-            <div class="faq-item">
-                <button type="button" class="faq-question">
-                    <h3>{{ faq.title }}</h3>
-                    <span class="faq-toggle">+</span>
-                </button>
-                <div class="faq-answer"><div class="faq-answer-inner">{{ faq.body }}</div></div>
+{# ── Visit / store info dark band ─────────── #}
+<section class="shoe-visit-band" id="visit">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
+        <div class="shoe-visit-grid">
+            <div class="reveal">
+                <span style="display:inline-block; font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; padding:5px 12px; border-radius:999px; background:rgba(255,255,255,0.08); color:rgba(251,248,243,0.4); margin-bottom:16px;">Visit or order</span>
+                <h2>Customers can act from here, the hero, or the card.</h2>
+                <p>Fast local retail conversion: ask on WhatsApp, call the store, or plan a visit.</p>
+                {% if whatsapp %}
+                <a href="https://wa.me/{{ whatsapp }}" target="_blank" rel="noopener" class="btn-shoe-wa-primary" style="margin-top:24px; display:inline-flex;">
+                    {{ ui.wa_icon() }} Check stock on WhatsApp
+                </a>
+                {% endif %}
             </div>
-            {% endfor %}
+            <div class="shoe-visit-info reveal">
+                {% if working_hours_raw %}<p><strong>Hours</strong>{{ working_hours_raw }}</p>{% endif %}
+                {% if phone %}<p><strong>Phone</strong><a href="tel:{{ phone }}">{{ phone }}</a></p>{% endif %}
+                {% if whatsapp %}<p><strong>WhatsApp</strong><a href="https://wa.me/{{ whatsapp }}" target="_blank" rel="noopener">Send a message →</a></p>{% endif %}
+                {% if address %}<p><strong>Address</strong>{{ address }}</p>{% endif %}
+                {% if gmap_link %}<p><strong>Directions</strong><a href="{{ gmap_link }}" target="_blank" rel="noopener">Open in Maps →</a></p>{% endif %}
+            </div>
         </div>
     </div>
 </section>
 
-{# ── Contact ─────────────────────────────────── #}
-<section class="section demo-contact-section" id="contact">
-    <div class="container">
+{# ── FAQ ──────────────────────────────────── #}
+<section class="shoe-faq-section" id="faq">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
+        <div class="shoe-faq-inner">
+            <div class="reveal">
+                <span class="section-label" style="display:inline-block; font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; padding:5px 12px; border-radius:999px; background:rgba(26,26,26,0.07); color:rgba(26,26,26,0.5); margin-bottom:16px;">Store FAQ</span>
+                <h2>Answers that reduce purchase hesitation.</h2>
+            </div>
+            <div class="faq-container">
+                {% for faq in faqs %}
+                <div class="faq-item">
+                    <button type="button" class="faq-question">
+                        <h3>{{ faq.title }}</h3>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer"><div class="faq-answer-inner">{{ faq.body }}</div></div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{# ── Contact ──────────────────────────────── #}
+<section class="shoe-contact-section" id="contact">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
         {{ ui.contact_panel() }}
     </div>
 </section>
