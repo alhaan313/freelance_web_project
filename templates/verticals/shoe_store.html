@@ -1,7 +1,8 @@
 {% import "components/demo_macros.html" as ui with context %}
 
+{# ── Hero ───────────────────────────────────── #}
 <section class="demo-hero demo-hero-retail" id="hero">
-    <div class="container demo-retail-hero-grid">
+    <div class="demo-retail-hero-grid">
         <div class="demo-hero-copy">
             <div class="hero-badge"><span class="hero-badge-dot"></span>{{ hero.eyebrow }}</div>
             <h1>{{ hero.headline }}</h1>
@@ -22,6 +23,7 @@
     </div>
 </section>
 
+{# ── Credibility strip ──────────────────────── #}
 <section class="demo-cred-strip" aria-label="Store details">
     <div class="container demo-cred-grid">
         {% for item in credibility %}
@@ -33,26 +35,29 @@
     </div>
 </section>
 
+{# ── Product grid ───────────────────────────── #}
 <section class="section section-alt" id="services">
     <div class="container">
-        <div class="demo-retail-heading">
+        <div class="demo-retail-heading reveal">
             <div>
                 <span class="section-label">{{ sections.offering_label }}</span>
                 <h2>{{ sections.offering_heading }}</h2>
             </div>
-            {% if whatsapp %}<a href="https://wa.me/{{ whatsapp }}" target="_blank" class="btn btn-whatsapp">Check size on WhatsApp</a>{% endif %}
+            {% if whatsapp %}
+            <a href="https://wa.me/{{ whatsapp }}" target="_blank" class="btn btn-whatsapp">Check size on WhatsApp</a>
+            {% endif %}
         </div>
         <div class="demo-shop-grid">
             {% for item in offerings %}
-            <article class="demo-shop-card">
+            <article class="demo-shop-card reveal">
                 <img src="{{ ui.image_src(item.image) }}" alt="{{ item.name }}" loading="lazy">
                 <div class="demo-shop-body">
-                    <span>{{ item.type|title }}</span>
+                    <span>{{ item.type | title }}</span>
                     <h3>{{ item.name }}</h3>
                     <p>{{ item.description }}</p>
                     <div>
                         <strong>{{ item.price or 'Ask for price' }}</strong>
-                        <a href="#contact">Enquire</a>
+                        <a href="#contact">Enquire →</a>
                     </div>
                 </div>
             </article>
@@ -61,16 +66,17 @@
     </div>
 </section>
 
+{# ── Style / trust band ─────────────────────── #}
 <section class="section demo-style-band" id="styles">
     <div class="container">
-        <div class="section-header">
-            <span class="section-label">Shopping signals</span>
+        <div class="section-header reveal" style="text-align:left; max-width:640px;">
+            <span class="section-label" style="background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.6); border:none;">Shopping signals</span>
             <h2>Built around how footwear customers decide.</h2>
-            <p>The demo makes size, style, occasion, store visit, and WhatsApp ordering feel natural instead of hiding them behind generic contact copy.</p>
+            <p>Size, style, occasion, store visit, and WhatsApp ordering — made natural instead of hidden behind generic contact copy.</p>
         </div>
         <div class="demo-mini-grid demo-style-grid">
             {% for item in trust_blocks %}
-            <div class="demo-mini-card">
+            <div class="demo-mini-card reveal">
                 <h3>{{ item.title }}</h3>
                 <p>{{ item.value }}</p>
             </div>
@@ -79,9 +85,10 @@
     </div>
 </section>
 
+{# ── Gallery ────────────────────────────────── #}
 <section class="section demo-gallery-section" id="gallery">
     <div class="container">
-        <div class="demo-gallery-head">
+        <div class="demo-gallery-head reveal">
             <div>
                 <span class="section-label">{{ sections.gallery_label }}</span>
                 <h2>Product imagery with store energy.</h2>
@@ -90,7 +97,7 @@
         </div>
         <div class="demo-gallery-grid">
             {% for image in gallery %}
-            <figure>
+            <figure class="reveal">
                 <img src="{{ ui.image_src(image.url) }}" alt="{{ image.caption }}" loading="lazy">
                 <figcaption>{{ image.caption }}</figcaption>
             </figure>
@@ -99,32 +106,37 @@
     </div>
 </section>
 
+{# ── Visit band ─────────────────────────────── #}
 <section class="section demo-visit-band" id="visit">
     <div class="container demo-visit-grid">
-        <div>
+        <div class="reveal">
             <span class="section-label">Visit or order</span>
-            <h2>Customers can act from the card, the hero, or the contact section.</h2>
-            <p>This page is designed for fast local retail conversion: ask on WhatsApp, call the store, or plan a visit.</p>
+            <h2>Customers can act from the card, the hero, or here.</h2>
+            <p>Designed for fast local retail conversion: ask on WhatsApp, call the store, or plan a visit.</p>
         </div>
-        <div class="demo-visit-list">
+        <div class="demo-visit-list reveal">
             {% if working_hours_raw %}<p><strong>Hours</strong>{{ working_hours_raw }}</p>{% endif %}
             {% if phone %}<p><strong>Phone</strong><a href="tel:{{ phone }}">{{ phone }}</a></p>{% endif %}
             {% if whatsapp %}<p><strong>WhatsApp</strong><a href="https://wa.me/{{ whatsapp }}" target="_blank">Check stock</a></p>{% endif %}
-            {% if gmap_link %}<a href="{{ gmap_link }}" target="_blank" class="btn btn-outline">Open Maps</a>{% endif %}
+            {% if gmap_link %}<a href="{{ gmap_link }}" target="_blank" class="btn btn-outline" style="margin-top:20px;">Open in Maps</a>{% endif %}
         </div>
     </div>
 </section>
 
+{# ── FAQ ────────────────────────────────────── #}
 <section class="section faq-section" id="faq">
     <div class="container demo-proof-grid">
-        <div>
+        <div class="reveal">
             <span class="section-label">Store FAQ</span>
             <h2>Answers that reduce purchase hesitation.</h2>
         </div>
         <div class="faq-container">
             {% for faq in faqs %}
             <div class="faq-item">
-                <button type="button" class="faq-question"><h3>{{ faq.title }}</h3><span class="faq-toggle">+</span></button>
+                <button type="button" class="faq-question">
+                    <h3>{{ faq.title }}</h3>
+                    <span class="faq-toggle">+</span>
+                </button>
                 <div class="faq-answer"><div class="faq-answer-inner">{{ faq.body }}</div></div>
             </div>
             {% endfor %}
@@ -132,6 +144,7 @@
     </div>
 </section>
 
+{# ── Contact ─────────────────────────────────── #}
 <section class="section demo-contact-section" id="contact">
     <div class="container">
         {{ ui.contact_panel() }}

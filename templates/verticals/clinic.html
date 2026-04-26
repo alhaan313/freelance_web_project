@@ -1,7 +1,8 @@
 {% import "components/demo_macros.html" as ui with context %}
 
+{# ── Hero ───────────────────────────────────── #}
 <section class="demo-hero demo-hero-clinic" id="hero">
-    <div class="container demo-hero-grid">
+    <div class="demo-hero-grid">
         <div class="demo-hero-copy">
             <div class="hero-badge"><span class="hero-badge-dot"></span>{{ hero.eyebrow }}</div>
             <h1>{{ hero.headline }}</h1>
@@ -9,9 +10,9 @@
             {{ ui.action_row() }}
         </div>
         <div class="clinic-hero-card">
-            <img src="{{ ui.image_src(hero.image) }}" alt="{{ name }} clinic environment">
+            <img src="{{ ui.image_src(hero.image) }}" alt="{{ name }} clinic">
             <div class="clinic-card-meta">
-                <span>Specialist profile</span>
+                <span>Specialist</span>
                 <strong>{{ doctor_name or name }}</strong>
                 <p>{{ qualification or specialization or 'Appointment-led patient care' }}</p>
             </div>
@@ -19,6 +20,7 @@
     </div>
 </section>
 
+{# ── Credibility strip ──────────────────────── #}
 <section class="demo-cred-strip" aria-label="Clinic details">
     <div class="container demo-cred-grid">
         {% for item in credibility %}
@@ -30,15 +32,16 @@
     </div>
 </section>
 
+{# ── Doctor / about split ───────────────────── #}
 <section class="section demo-split" id="doctor">
     <div class="container demo-split-grid">
-        <div class="demo-media-stack">
-            <img src="{{ ui.image_src('images/about_clinic.jpg') }}" alt="{{ name }} care detail" loading="lazy">
+        <div class="demo-media-stack reveal">
+            <img src="{{ ui.image_src('images/about_clinic.jpg') }}" alt="{{ name }} care" loading="lazy">
         </div>
-        <div class="demo-section-copy">
-            <span class="section-label">Doctor and care</span>
+        <div class="demo-section-copy reveal">
+            <span class="section-label">Doctor &amp; care</span>
             <h2>Patients see who they are contacting before they call.</h2>
-            <p>{{ name }} gets a healthcare page shaped around credibility: doctor profile, treatment clarity, appointment CTA, timings, and location.</p>
+            <p>{{ name }} gets a healthcare page shaped around credibility — doctor profile, treatment clarity, appointment CTA, timings, and location.</p>
             <div class="demo-mini-grid">
                 {% for item in trust_blocks %}
                 <div class="demo-mini-card">
@@ -51,22 +54,23 @@
     </div>
 </section>
 
+{# ── Treatments / services ──────────────────── #}
 <section class="section section-alt" id="services">
     <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
             <span class="section-label">{{ sections.offering_label }}</span>
             <h2>{{ sections.offering_heading }}</h2>
-            <p>Each treatment card can come from Supabase offerings or clinic detail fields, with graceful fallbacks when data is still incomplete.</p>
+            <p>Each treatment card is populated from the database, with graceful fallbacks when data is incomplete.</p>
         </div>
         <div class="demo-offering-grid">
             {% for item in offerings %}
-            <article class="demo-offering-card">
+            <article class="demo-offering-card reveal">
                 <img src="{{ ui.image_src(item.image) }}" alt="{{ item.name }}" loading="lazy">
                 <div>
-                    <span>{{ item.type|title }}</span>
+                    <span>{{ item.type | title }}</span>
                     <h3>{{ item.name }}</h3>
                     <p>{{ item.description }}</p>
-                    <a href="#contact">Ask about this treatment</a>
+                    <a href="#contact">Ask about this treatment →</a>
                 </div>
             </article>
             {% endfor %}
@@ -74,32 +78,34 @@
     </div>
 </section>
 
+{# ── Visit band ─────────────────────────────── #}
 <section class="section demo-visit-band" id="visit">
     <div class="container demo-visit-grid">
-        <div>
-            <span class="section-label">Timings and location</span>
+        <div class="reveal">
+            <span class="section-label">Timings &amp; location</span>
             <h2>Appointment information without friction.</h2>
-            <p>Patients do not need to search for the next step. Phone, WhatsApp, maps, and hours stay close to the treatment decision.</p>
+            <p>Phone, WhatsApp, maps, and hours stay close to the treatment decision — no hunting required.</p>
         </div>
-        <div class="demo-visit-list">
+        <div class="demo-visit-list reveal">
             {% if working_hours_raw %}<p><strong>Hours</strong>{{ working_hours_raw }}</p>{% endif %}
             {% if address %}<p><strong>Address</strong>{{ address }}</p>{% endif %}
             {% if phone %}<p><strong>Phone</strong><a href="tel:{{ phone }}">{{ phone }}</a></p>{% endif %}
-            {% if gmap_link %}<a href="{{ gmap_link }}" target="_blank" class="btn btn-outline">Open Maps</a>{% endif %}
+            {% if gmap_link %}<a href="{{ gmap_link }}" target="_blank" class="btn btn-outline" style="margin-top:20px;">Open in Maps</a>{% endif %}
         </div>
     </div>
 </section>
 
-<section class="section" id="testimonials">
+{# ── Reviews ────────────────────────────────── #}
+<section class="section demo-proof-section" id="testimonials">
     <div class="container demo-proof-grid">
-        <div>
+        <div class="reveal">
             <span class="section-label">{{ sections.trust_heading }}</span>
             <h2>Trust cues without risky medical claims.</h2>
-            <p>Reviews are optional demo content. If verified reviews are not available yet, the page uses restrained category-specific placeholders.</p>
+            <p>Reviews use category-specific, restrained copy — no unverifiable health promises.</p>
         </div>
         <div class="demo-review-list">
             {% for review in reviews %}
-            <blockquote>
+            <blockquote class="reveal">
                 <p>{{ review.body }}</p>
                 <cite>{{ review.author }}</cite>
             </blockquote>
@@ -108,16 +114,20 @@
     </div>
 </section>
 
+{# ── FAQ ────────────────────────────────────── #}
 <section class="section faq-section" id="faq">
     <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
             <span class="section-label">FAQ</span>
             <h2>Common appointment questions</h2>
         </div>
         <div class="faq-container">
             {% for faq in faqs %}
             <div class="faq-item">
-                <button type="button" class="faq-question"><h3>{{ faq.title }}</h3><span class="faq-toggle">+</span></button>
+                <button type="button" class="faq-question">
+                    <h3>{{ faq.title }}</h3>
+                    <span class="faq-toggle">+</span>
+                </button>
                 <div class="faq-answer"><div class="faq-answer-inner">{{ faq.body }}</div></div>
             </div>
             {% endfor %}
@@ -125,6 +135,7 @@
     </div>
 </section>
 
+{# ── Contact ─────────────────────────────────── #}
 <section class="section demo-contact-section" id="contact">
     <div class="container">
         {{ ui.contact_panel() }}

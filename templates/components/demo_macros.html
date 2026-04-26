@@ -9,9 +9,15 @@
 {% macro contact_panel() -%}
 <div class="demo-contact-panel">
     <div>
-        <span class="section-label">Contact path</span>
+        <span class="section-label">Get in touch</span>
         <h2>{{ sections.contact_heading }}</h2>
         <p>{{ sections.form_prompt }}</p>
+        {% if phone %}
+        <p style="margin-top:32px; display:flex; align-items:center; gap:12px;">
+            <span style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; font-weight:700; color:var(--text-secondary);">Or call directly</span>
+            <a href="tel:{{ phone }}" style="font-weight:700; color:var(--accent, var(--brown)); font-size:1.05rem;">{{ phone }}</a>
+        </p>
+        {% endif %}
     </div>
     <form id="lead-form" class="demo-lead-form" action="/api/lead" method="POST">
         <input type="hidden" name="business_id" value="{{ id }}">
@@ -19,18 +25,18 @@
         <input type="hidden" name="lead_context" value="{{ vertical.lead_context }}">
         <div class="form-group">
             <label for="customer_name">Your name</label>
-            <input type="text" id="customer_name" name="customer_name" autocomplete="name" required>
+            <input type="text" id="customer_name" name="customer_name" autocomplete="name" placeholder="Full name" required>
         </div>
         <div class="form-group">
             <label for="customer_phone">Phone number</label>
-            <input type="tel" id="customer_phone" name="phone" autocomplete="tel" required>
+            <input type="tel" id="customer_phone" name="phone" autocomplete="tel" placeholder="+91 99999 99999" required>
         </div>
         <div class="form-group">
             <label for="inquiry_text">Message</label>
             <textarea id="inquiry_text" name="inquiry_text" rows="4" placeholder="{{ sections.form_prompt }}"></textarea>
         </div>
         <button type="submit" class="btn btn-primary btn-lg">{{ hero.primary_cta }}</button>
-        <div class="form-success" id="formSuccess" role="status">Thank you. Your inquiry has been sent.</div>
+        <div class="form-success" id="formSuccess" role="status">Thank you — your inquiry has been sent.</div>
     </form>
 </div>
 {%- endmacro %}
@@ -39,7 +45,8 @@
 <div class="demo-actions">
     <a href="#contact" class="btn btn-primary btn-lg">{{ hero.primary_cta }}</a>
     {% for action in contact_actions %}
-    <a href="{{ action.href }}" class="btn {{ 'btn-whatsapp' if action.kind == 'whatsapp' else 'btn-outline' }} btn-lg" {% if action.kind in ['whatsapp', 'map'] %}target="_blank"{% endif %}>{{ action.label }}</a>
+    <a href="{{ action.href }}" class="btn {{ 'btn-whatsapp' if action.kind == 'whatsapp' else 'btn-outline' }} btn-lg"
+        {% if action.kind in ['whatsapp', 'map'] %}target="_blank"{% endif %}>{{ action.label }}</a>
     {% endfor %}
 </div>
 {%- endmacro %}
