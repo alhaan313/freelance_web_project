@@ -1,27 +1,44 @@
 {% import "components/demo_macros.html" as ui with context %}
 
-{# ── Hero ───────────────────────────────────── #}
+{# ── Hero: text-first on mobile, split on desktop ── #}
 <section class="demo-hero demo-hero-clinic" id="hero">
     <div class="demo-hero-grid">
+
+        {# LEFT: copy — always rendered first in DOM (mobile priority) #}
         <div class="demo-hero-copy">
             <div class="hero-badge"><span class="hero-badge-dot"></span>{{ hero.eyebrow }}</div>
             <h1>{{ hero.headline }}</h1>
             <p class="lead">{{ hero.intro }}</p>
             {{ ui.action_row() }}
+
+            {# Mobile-only: doctor chip shown inline under CTAs instead of a full image panel #}
+            <div class="clinic-doctor-chip">
+                <div class="clinic-doctor-avatar">
+                    <img src="{{ ui.image_src('images/feat_clinic_1.jpg') }}" alt="{{ doctor_name or name }}">
+                </div>
+                <div>
+                    <span>Specialist</span>
+                    <strong>{{ doctor_name or name }}</strong>
+                    <p>{{ qualification or specialization or 'Appointment-led care' }}</p>
+                </div>
+            </div>
         </div>
+
+        {# RIGHT: full-bleed hero image — hidden on mobile #}
         <div class="clinic-hero-card">
-            <img src="{{ ui.image_src(hero.image) }}" alt="{{ name }} clinic">
+            <img src="{{ ui.image_src(hero.image) }}" alt="{{ name }} clinic environment">
             <div class="clinic-card-meta">
                 <span>Specialist</span>
                 <strong>{{ doctor_name or name }}</strong>
                 <p>{{ qualification or specialization or 'Appointment-led patient care' }}</p>
             </div>
         </div>
+
     </div>
 </section>
 
-{# ── Credibility strip ──────────────────────── #}
-<section class="demo-cred-strip" aria-label="Clinic details">
+{# ── Credibility strip ──────────────────────────── #}
+<section class="demo-cred-strip" aria-label="Clinic at a glance">
     <div class="container demo-cred-grid">
         {% for item in credibility %}
         <div>
@@ -32,35 +49,43 @@
     </div>
 </section>
 
-{# ── Doctor / about split ───────────────────── #}
+{# ── Doctor & trust — NO image, bento grid of trust blocks ── #}
 <section class="section demo-split" id="doctor">
-    <div class="container demo-split-grid">
-        <div class="demo-media-stack reveal">
-            <img src="{{ ui.image_src('images/about_clinic.jpg') }}" alt="{{ name }} care" loading="lazy">
-        </div>
-        <div class="demo-section-copy reveal">
-            <span class="section-label">Doctor &amp; care</span>
-            <h2>Patients see who they are contacting before they call.</h2>
-            <p>{{ name }} gets a healthcare page shaped around credibility — doctor profile, treatment clarity, appointment CTA, timings, and location.</p>
-            <div class="demo-mini-grid">
+    <div class="container">
+        <div class="clinic-trust-layout">
+
+            <div class="clinic-trust-header reveal">
+                <span class="section-label">Doctor &amp; care</span>
+                <h2>Everything a patient needs before they call.</h2>
+                <p>{{ name }} presents doctor credentials, treatment clarity, timings, and a direct contact path — all above the fold on mobile.</p>
+            </div>
+
+            <div class="clinic-bento-grid">
                 {% for item in trust_blocks %}
-                <div class="demo-mini-card">
-                    <h3>{{ item.title }}</h3>
+                <div class="clinic-bento-card reveal">
+                    <span class="clinic-bento-label">{{ item.title }}</span>
                     <p>{{ item.value }}</p>
                 </div>
                 {% endfor %}
+
+                {# Gallery peek — uses a different clinic image, not the hero #}
+                <div class="clinic-bento-image reveal">
+                    <img src="{{ ui.image_src('images/about_clinic.jpg') }}" alt="{{ name }} care environment" loading="lazy">
+                    <div class="clinic-bento-image-tag">Our environment</div>
+                </div>
             </div>
+
         </div>
     </div>
 </section>
 
-{# ── Treatments / services ──────────────────── #}
+{# ── Treatments ─────────────────────────────────── #}
 <section class="section section-alt" id="services">
     <div class="container">
         <div class="section-header reveal">
             <span class="section-label">{{ sections.offering_label }}</span>
             <h2>{{ sections.offering_heading }}</h2>
-            <p>Each treatment card is populated from the database, with graceful fallbacks when data is incomplete.</p>
+            <p>Treatment cards pull from the database — structured around how patients actually decide.</p>
         </div>
         <div class="demo-offering-grid">
             {% for item in offerings %}
@@ -70,7 +95,7 @@
                     <span>{{ item.type | title }}</span>
                     <h3>{{ item.name }}</h3>
                     <p>{{ item.description }}</p>
-                    <a href="#contact">Ask about this treatment →</a>
+                    <a href="#contact">Ask about this →</a>
                 </div>
             </article>
             {% endfor %}
@@ -78,13 +103,13 @@
     </div>
 </section>
 
-{# ── Visit band ─────────────────────────────── #}
+{# ── Visit & timings band ───────────────────────── #}
 <section class="section demo-visit-band" id="visit">
     <div class="container demo-visit-grid">
         <div class="reveal">
             <span class="section-label">Timings &amp; location</span>
-            <h2>Appointment information without friction.</h2>
-            <p>Phone, WhatsApp, maps, and hours stay close to the treatment decision — no hunting required.</p>
+            <h2>Find us, call us, visit us.</h2>
+            <p>Hours, address, and directions — right next to the contact form, not three scrolls away.</p>
         </div>
         <div class="demo-visit-list reveal">
             {% if working_hours_raw %}<p><strong>Hours</strong>{{ working_hours_raw }}</p>{% endif %}
@@ -95,13 +120,13 @@
     </div>
 </section>
 
-{# ── Reviews ────────────────────────────────── #}
+{# ── Patient reviews ────────────────────────────── #}
 <section class="section demo-proof-section" id="testimonials">
     <div class="container demo-proof-grid">
         <div class="reveal">
             <span class="section-label">{{ sections.trust_heading }}</span>
-            <h2>Trust cues without risky medical claims.</h2>
-            <p>Reviews use category-specific, restrained copy — no unverifiable health promises.</p>
+            <h2>What patients say.</h2>
+            <p>Restrained, honest reviews — no unverifiable medical claims.</p>
         </div>
         <div class="demo-review-list">
             {% for review in reviews %}
@@ -114,12 +139,12 @@
     </div>
 </section>
 
-{# ── FAQ ────────────────────────────────────── #}
+{# ── FAQ ────────────────────────────────────────── #}
 <section class="section faq-section" id="faq">
     <div class="container">
         <div class="section-header reveal">
             <span class="section-label">FAQ</span>
-            <h2>Common appointment questions</h2>
+            <h2>Common questions before booking</h2>
         </div>
         <div class="faq-container">
             {% for faq in faqs %}
@@ -135,7 +160,7 @@
     </div>
 </section>
 
-{# ── Contact ─────────────────────────────────── #}
+{# ── Contact ────────────────────────────────────── #}
 <section class="section demo-contact-section" id="contact">
     <div class="container">
         {{ ui.contact_panel() }}
